@@ -8,62 +8,62 @@ package chapter_tree;
 
 import utils.*;
 
-/* 二叉搜索树 */
+/* Binary search tree */
 class BinarySearchTree {
     private TreeNode root;
 
-    /* 构造方法 */
+    /* Constructor */
     public BinarySearchTree() {
-        // 初始化空树
+        // Initialize empty tree
         root = null;
     }
 
-    /* 获取二叉树根节点 */
+    /* Get binary tree root node */
     public TreeNode getRoot() {
         return root;
     }
 
-    /* 查找节点 */
+    /* Search node */
     public TreeNode search(int num) {
         TreeNode cur = root;
-        // 循环查找，越过叶节点后跳出
+        // Loop find, break after passing leaf nodes
         while (cur != null) {
-            // 目标节点在 cur 的右子树中
+            // Target node is in cur's right subtree
             if (cur.val < num)
                 cur = cur.right;
-            // 目标节点在 cur 的左子树中
+            // Target node is in cur's left subtree
             else if (cur.val > num)
                 cur = cur.left;
-            // 找到目标节点，跳出循环
+            // Found target node, break loop
             else
                 break;
         }
-        // 返回目标节点
+        // Return target node
         return cur;
     }
 
-    /* 插入节点 */
+    /* Insert node */
     public void insert(int num) {
-        // 若树为空，则初始化根节点
+        // If tree is empty, initialize root node
         if (root == null) {
             root = new TreeNode(num);
             return;
         }
         TreeNode cur = root, pre = null;
-        // 循环查找，越过叶节点后跳出
+        // Loop find, break after passing leaf nodes
         while (cur != null) {
-            // 找到重复节点，直接返回
+            // Found duplicate node, thus return
             if (cur.val == num)
                 return;
             pre = cur;
-            // 插入位置在 cur 的右子树中
+            // Insertion position is in cur's right subtree
             if (cur.val < num)
                 cur = cur.right;
-            // 插入位置在 cur 的左子树中
+            // Insertion position is in cur's left subtree
             else
                 cur = cur.left;
         }
-        // 插入节点
+        // Insert node
         TreeNode node = new TreeNode(num);
         if (pre.val < num)
             pre.right = node;
@@ -71,53 +71,53 @@ class BinarySearchTree {
             pre.left = node;
     }
 
-    /* 删除节点 */
+    /* Remove node */
     public void remove(int num) {
-        // 若树为空，直接提前返回
+        // If tree is empty, return
         if (root == null)
             return;
         TreeNode cur = root, pre = null;
-        // 循环查找，越过叶节点后跳出
+        // Loop find, break after passing leaf nodes
         while (cur != null) {
-            // 找到待删除节点，跳出循环
+            // Found node to be removed, break loop
             if (cur.val == num)
                 break;
             pre = cur;
-            // 待删除节点在 cur 的右子树中
+            // Node to be removed is in cur's right subtree
             if (cur.val < num)
                 cur = cur.right;
-            // 待删除节点在 cur 的左子树中
+            // Node to be removed is in cur's left subtree
             else
                 cur = cur.left;
         }
-        // 若无待删除节点，则直接返回
+        // If no node to be removed, return
         if (cur == null)
             return;
-        // 子节点数量 = 0 or 1
+        // Number of child nodes = 0 or 1
         if (cur.left == null || cur.right == null) {
-            // 当子节点数量 = 0 / 1 时， child = null / 该子节点
+            // When the number of child nodes = 0/1, child = null/that child node
             TreeNode child = cur.left != null ? cur.left : cur.right;
-            // 删除节点 cur
+            // Remove node cur
             if (cur != root) {
                 if (pre.left == cur)
                     pre.left = child;
                 else
                     pre.right = child;
             } else {
-                // 若删除节点为根节点，则重新指定根节点
+                // If the removed node is the root, reassign the root
                 root = child;
             }
         }
-        // 子节点数量 = 2
+        // Number of child nodes = 2
         else {
-            // 获取中序遍历中 cur 的下一个节点
+            // Get the next node in in-order traversal of cur
             TreeNode tmp = cur.right;
             while (tmp.left != null) {
                 tmp = tmp.left;
             }
-            // 递归删除节点 tmp
+            // Recursively remove node tmp
             remove(tmp.val);
-            // 用 tmp 覆盖 cur
+            // Replace cur with tmp
             cur.val = tmp.val;
         }
     }
@@ -125,34 +125,34 @@ class BinarySearchTree {
 
 public class binary_search_tree {
     public static void main(String[] args) {
-        /* 初始化二叉搜索树 */
+        /* Initialize binary search tree */
         BinarySearchTree bst = new BinarySearchTree();
-        // 请注意，不同的插入顺序会生成不同的二叉树，该序列可以生成一个完美二叉树
+        // Note that different insertion orders can result in various tree structures. This particular sequence creates a perfect binary tree
         int[] nums = { 8, 4, 12, 2, 6, 10, 14, 1, 3, 5, 7, 9, 11, 13, 15 };
         for (int num : nums) {
             bst.insert(num);
         }
-        System.out.println("\n初始化的二叉树为\n");
+        System.out.println("\nInitialized binary tree is\n");
         PrintUtil.printTree(bst.getRoot());
 
-        /* 查找节点 */
+        /* Search node */
         TreeNode node = bst.search(7);
-        System.out.println("\n查找到的节点对象为 " + node + "，节点值 = " + node.val);
+        System.out.println("\nThe found node object is " + node + ", node value = " + node.val);
 
-        /* 插入节点 */
+        /* Insert node */
         bst.insert(16);
-        System.out.println("\n插入节点 16 后，二叉树为\n");
+        System.out.println("\nAfter inserting node 16, the binary tree is\n");
         PrintUtil.printTree(bst.getRoot());
 
-        /* 删除节点 */
+        /* Remove node */
         bst.remove(1);
-        System.out.println("\n删除节点 1 后，二叉树为\n");
+        System.out.println("\nAfter removing node 1, the binary tree is\n");
         PrintUtil.printTree(bst.getRoot());
         bst.remove(2);
-        System.out.println("\n删除节点 2 后，二叉树为\n");
+        System.out.println("\nAfter removing node 2, the binary tree is\n");
         PrintUtil.printTree(bst.getRoot());
         bst.remove(4);
-        System.out.println("\n删除节点 4 后，二叉树为\n");
+        System.out.println("\nAfter removing node 4, the binary tree is\n");
         PrintUtil.printTree(bst.getRoot());
     }
 }

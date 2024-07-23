@@ -9,47 +9,47 @@ package chapter_greedy;
 import java.util.Arrays;
 
 public class coin_change_greedy {
-    /* 零钱兑换：贪心 */
+    /* Coin change: Greedy */
     static int coinChangeGreedy(int[] coins, int amt) {
-        // 假设 coins 列表有序
+        // Assume coins list is ordered
         int i = coins.length - 1;
         int count = 0;
-        // 循环进行贪心选择，直到无剩余金额
+        // Loop for greedy selection until no remaining amount
         while (amt > 0) {
-            // 找到小于且最接近剩余金额的硬币
+            // Find the smallest coin close to and less than the remaining amount
             while (i > 0 && coins[i] > amt) {
                 i--;
             }
-            // 选择 coins[i]
+            // Choose coins[i]
             amt -= coins[i];
             count++;
         }
-        // 若未找到可行方案，则返回 -1
+        // If no feasible solution is found, return -1
         return amt == 0 ? count : -1;
     }
 
     public static void main(String[] args) {
-        // 贪心：能够保证找到全局最优解
+        // Greedy: can ensure finding a global optimal solution
         int[] coins = { 1, 5, 10, 20, 50, 100 };
         int amt = 186;
         int res = coinChangeGreedy(coins, amt);
         System.out.println("\ncoins = " + Arrays.toString(coins) + ", amt = " + amt);
-        System.out.println("凑到 " + amt + " 所需的最少硬币数量为 " + res);
+        System.out.println("The minimum number of coins required to make up " + amt + " is " + res);
 
-        // 贪心：无法保证找到全局最优解
+        // Greedy: cannot ensure finding a global optimal solution
         coins = new int[] { 1, 20, 50 };
         amt = 60;
         res = coinChangeGreedy(coins, amt);
         System.out.println("\ncoins = " + Arrays.toString(coins) + ", amt = " + amt);
-        System.out.println("凑到 " + amt + " 所需的最少硬币数量为 " + res);
-        System.out.println("实际上需要的最少数量为 3 ，即 20 + 20 + 20");
+        System.out.println("The minimum number of coins required to make up " + amt + " is " + res);
+        System.out.println("In reality, the minimum number needed is 3, i.e., 20 + 20 + 20");
 
-        // 贪心：无法保证找到全局最优解
+        // Greedy: cannot ensure finding a global optimal solution
         coins = new int[] { 1, 49, 50 };
         amt = 98;
         res = coinChangeGreedy(coins, amt);
         System.out.println("\ncoins = " + Arrays.toString(coins) + ", amt = " + amt);
-        System.out.println("凑到 " + amt + " 所需的最少硬币数量为 " + res);
-        System.out.println("实际上需要的最少数量为 2 ，即 49 + 49");
+        System.out.println("The minimum number of coins required to make up " + amt + " is " + res);
+        System.out.println("In reality, the minimum number needed is 2, i.e., 49 + 49");
     }
 }

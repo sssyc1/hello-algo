@@ -8,131 +8,131 @@ package chapter_sorting;
 
 import java.util.*;
 
-/* 快速排序类 */
+/* Quick sort class */
 class QuickSort {
-    /* 元素交换 */
+    /* Swap elements */
     static void swap(int[] nums, int i, int j) {
         int tmp = nums[i];
         nums[i] = nums[j];
         nums[j] = tmp;
     }
 
-    /* 哨兵划分 */
+    /* Partition */
     static int partition(int[] nums, int left, int right) {
-        // 以 nums[left] 为基准数
+        // Use nums[left] as the pivot
         int i = left, j = right;
         while (i < j) {
             while (i < j && nums[j] >= nums[left])
-                j--;          // 从右向左找首个小于基准数的元素
+                j--;          // Search from right to left for the first element smaller than the pivot
             while (i < j && nums[i] <= nums[left])
-                i++;          // 从左向右找首个大于基准数的元素
-            swap(nums, i, j); // 交换这两个元素
+                i++;          // Search from left to right for the first element greater than the pivot
+            swap(nums, i, j); // Swap these two elements
         }
-        swap(nums, i, left);  // 将基准数交换至两子数组的分界线
-        return i;             // 返回基准数的索引
+        swap(nums, i, left);  // Swap the pivot to the boundary between the two subarrays
+        return i;             // Return the index of the pivot
     }
 
-    /* 快速排序 */
+    /* Quick sort */
     public static void quickSort(int[] nums, int left, int right) {
-        // 子数组长度为 1 时终止递归
+        // Terminate recursion when subarray length is 1
         if (left >= right)
             return;
-        // 哨兵划分
+        // Partition
         int pivot = partition(nums, left, right);
-        // 递归左子数组、右子数组
+        // Recursively process the left subarray and right subarray
         quickSort(nums, left, pivot - 1);
         quickSort(nums, pivot + 1, right);
     }
 }
 
-/* 快速排序类（中位基准数优化） */
+/* Quick sort class (median pivot optimization) */
 class QuickSortMedian {
-    /* 元素交换 */
+    /* Swap elements */
     static void swap(int[] nums, int i, int j) {
         int tmp = nums[i];
         nums[i] = nums[j];
         nums[j] = tmp;
     }
 
-    /* 选取三个候选元素的中位数 */
+    /* Select the median of three candidate elements */
     static int medianThree(int[] nums, int left, int mid, int right) {
         int l = nums[left], m = nums[mid], r = nums[right];
         if ((l <= m && m <= r) || (r <= m && m <= l))
-            return mid; // m 在 l 和 r 之间
+            return mid; // m is between l and r
         if ((m <= l && l <= r) || (r <= l && l <= m))
-            return left; // l 在 m 和 r 之间
+            return left; // l is between m and r
         return right;
     }
 
-    /* 哨兵划分（三数取中值） */
+    /* Partition (median of three) */
     static int partition(int[] nums, int left, int right) {
-        // 选取三个候选元素的中位数
+        // Select the median of three candidate elements
         int med = medianThree(nums, left, (left + right) / 2, right);
-        // 将中位数交换至数组最左端
+        // Swap the median to the array's leftmost position
         swap(nums, left, med);
-        // 以 nums[left] 为基准数
+        // Use nums[left] as the pivot
         int i = left, j = right;
         while (i < j) {
             while (i < j && nums[j] >= nums[left])
-                j--;          // 从右向左找首个小于基准数的元素
+                j--;          // Search from right to left for the first element smaller than the pivot
             while (i < j && nums[i] <= nums[left])
-                i++;          // 从左向右找首个大于基准数的元素
-            swap(nums, i, j); // 交换这两个元素
+                i++;          // Search from left to right for the first element greater than the pivot
+            swap(nums, i, j); // Swap these two elements
         }
-        swap(nums, i, left);  // 将基准数交换至两子数组的分界线
-        return i;             // 返回基准数的索引
+        swap(nums, i, left);  // Swap the pivot to the boundary between the two subarrays
+        return i;             // Return the index of the pivot
     }
 
-    /* 快速排序 */
+    /* Quick sort */
     public static void quickSort(int[] nums, int left, int right) {
-        // 子数组长度为 1 时终止递归
+        // Terminate recursion when subarray length is 1
         if (left >= right)
             return;
-        // 哨兵划分
+        // Partition
         int pivot = partition(nums, left, right);
-        // 递归左子数组、右子数组
+        // Recursively process the left subarray and right subarray
         quickSort(nums, left, pivot - 1);
         quickSort(nums, pivot + 1, right);
     }
 }
 
-/* 快速排序类（尾递归优化） */
+/* Quick sort class (tail recursion optimization) */
 class QuickSortTailCall {
-    /* 元素交换 */
+    /* Swap elements */
     static void swap(int[] nums, int i, int j) {
         int tmp = nums[i];
         nums[i] = nums[j];
         nums[j] = tmp;
     }
 
-    /* 哨兵划分 */
+    /* Partition */
     static int partition(int[] nums, int left, int right) {
-        // 以 nums[left] 为基准数
+        // Use nums[left] as the pivot
         int i = left, j = right;
         while (i < j) {
             while (i < j && nums[j] >= nums[left])
-                j--;          // 从右向左找首个小于基准数的元素
+                j--;          // Search from right to left for the first element smaller than the pivot
             while (i < j && nums[i] <= nums[left])
-                i++;          // 从左向右找首个大于基准数的元素
-            swap(nums, i, j); // 交换这两个元素
+                i++;          // Search from left to right for the first element greater than the pivot
+            swap(nums, i, j); // Swap these two elements
         }
-        swap(nums, i, left);  // 将基准数交换至两子数组的分界线
-        return i;             // 返回基准数的索引
+        swap(nums, i, left);  // Swap the pivot to the boundary between the two subarrays
+        return i;             // Return the index of the pivot
     }
 
-    /* 快速排序（尾递归优化） */
+    /* Quick sort (tail recursion optimization) */
     public static void quickSort(int[] nums, int left, int right) {
-        // 子数组长度为 1 时终止
+        // Terminate when subarray length is 1
         while (left < right) {
-            // 哨兵划分操作
+            // Partition operation
             int pivot = partition(nums, left, right);
-            // 对两个子数组中较短的那个执行快速排序
+            // Perform quick sort on the shorter of the two subarrays
             if (pivot - left < right - pivot) {
-                quickSort(nums, left, pivot - 1); // 递归排序左子数组
-                left = pivot + 1; // 剩余未排序区间为 [pivot + 1, right]
+                quickSort(nums, left, pivot - 1); // Recursively sort the left subarray
+                left = pivot + 1; // Remaining unsorted interval is [pivot + 1, right]
             } else {
-                quickSort(nums, pivot + 1, right); // 递归排序右子数组
-                right = pivot - 1; // 剩余未排序区间为 [left, pivot - 1]
+                quickSort(nums, pivot + 1, right); // Recursively sort the right subarray
+                right = pivot - 1; // Remaining unsorted interval is [left, pivot - 1]
             }
         }
     }
@@ -140,19 +140,19 @@ class QuickSortTailCall {
 
 public class quick_sort {
     public static void main(String[] args) {
-        /* 快速排序 */
+        /* Quick sort */
         int[] nums = { 2, 4, 1, 0, 3, 5 };
         QuickSort.quickSort(nums, 0, nums.length - 1);
-        System.out.println("快速排序完成后 nums = " + Arrays.toString(nums));
+        System.out.println("After quick sort, nums = " + Arrays.toString(nums));
 
-        /* 快速排序（中位基准数优化） */
+        /* Quick sort (median pivot optimization) */
         int[] nums1 = { 2, 4, 1, 0, 3, 5 };
         QuickSortMedian.quickSort(nums1, 0, nums1.length - 1);
-        System.out.println("快速排序（中位基准数优化）完成后 nums1 = " + Arrays.toString(nums1));
+        System.out.println("After quick sort with median pivot optimization, nums1 = " + Arrays.toString(nums1));
 
-        /* 快速排序（尾递归优化） */
+        /* Quick sort (tail recursion optimization) */
         int[] nums2 = { 2, 4, 1, 0, 3, 5 };
         QuickSortTailCall.quickSort(nums2, 0, nums2.length - 1);
-        System.out.println("快速排序（尾递归优化）完成后 nums2 = " + Arrays.toString(nums2));
+        System.out.println("After quick sort with tail recursion optimization, nums2 = " + Arrays.toString(nums2));
     }
 }

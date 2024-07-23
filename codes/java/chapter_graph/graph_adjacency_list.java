@@ -9,15 +9,15 @@ package chapter_graph;
 import java.util.*;
 import utils.*;
 
-/* 基于邻接表实现的无向图类 */
+/* Undirected graph class based on adjacency list */
 class GraphAdjList {
-    // 邻接表，key：顶点，value：该顶点的所有邻接顶点
+    // Adjacency list, key: vertex, value: all adjacent vertices of that vertex
     Map<Vertex, List<Vertex>> adjList;
 
-    /* 构造方法 */
+    /* Constructor */
     public GraphAdjList(Vertex[][] edges) {
         this.adjList = new HashMap<>();
-        // 添加所有顶点和边
+        // Add all vertices and edges
         for (Vertex[] edge : edges) {
             addVertex(edge[0]);
             addVertex(edge[1]);
@@ -25,52 +25,52 @@ class GraphAdjList {
         }
     }
 
-    /* 获取顶点数量 */
+    /* Get the number of vertices */
     public int size() {
         return adjList.size();
     }
 
-    /* 添加边 */
+    /* Add edge */
     public void addEdge(Vertex vet1, Vertex vet2) {
         if (!adjList.containsKey(vet1) || !adjList.containsKey(vet2) || vet1 == vet2)
             throw new IllegalArgumentException();
-        // 添加边 vet1 - vet2
+        // Add edge vet1 - vet2
         adjList.get(vet1).add(vet2);
         adjList.get(vet2).add(vet1);
     }
 
-    /* 删除边 */
+    /* Remove edge */
     public void removeEdge(Vertex vet1, Vertex vet2) {
         if (!adjList.containsKey(vet1) || !adjList.containsKey(vet2) || vet1 == vet2)
             throw new IllegalArgumentException();
-        // 删除边 vet1 - vet2
+        // Remove edge vet1 - vet2
         adjList.get(vet1).remove(vet2);
         adjList.get(vet2).remove(vet1);
     }
 
-    /* 添加顶点 */
+    /* Add vertex */
     public void addVertex(Vertex vet) {
         if (adjList.containsKey(vet))
             return;
-        // 在邻接表中添加一个新链表
+        // Add a new linked list to the adjacency list
         adjList.put(vet, new ArrayList<>());
     }
 
-    /* 删除顶点 */
+    /* Remove vertex */
     public void removeVertex(Vertex vet) {
         if (!adjList.containsKey(vet))
             throw new IllegalArgumentException();
-        // 在邻接表中删除顶点 vet 对应的链表
+        // Remove the vertex vet's corresponding linked list from the adjacency list
         adjList.remove(vet);
-        // 遍历其他顶点的链表，删除所有包含 vet 的边
+        // Traverse other vertices' linked lists, removing all edges containing vet
         for (List<Vertex> list : adjList.values()) {
             list.remove(vet);
         }
     }
 
-    /* 打印邻接表 */
+    /* Print the adjacency list */
     public void print() {
-        System.out.println("邻接表 =");
+        System.out.println("Adjacency list =");
         for (Map.Entry<Vertex, List<Vertex>> pair : adjList.entrySet()) {
             List<Integer> tmp = new ArrayList<>();
             for (Vertex vertex : pair.getValue())
@@ -82,36 +82,36 @@ class GraphAdjList {
 
 public class graph_adjacency_list {
     public static void main(String[] args) {
-        /* 初始化无向图 */
+        /* Initialize undirected graph */
         Vertex[] v = Vertex.valsToVets(new int[] { 1, 3, 2, 5, 4 });
         Vertex[][] edges = { { v[0], v[1] }, { v[0], v[3] }, { v[1], v[2] },
                              { v[2], v[3] }, { v[2], v[4] }, { v[3], v[4] } };
         GraphAdjList graph = new GraphAdjList(edges);
-        System.out.println("\n初始化后，图为");
+        System.out.println("\nAfter initialization, the graph is");
         graph.print();
 
-        /* 添加边 */
-        // 顶点 1, 2 即 v[0], v[2]
+        /* Add edge */
+        // Vertices 1, 2 i.e., v[0], v[2]
         graph.addEdge(v[0], v[2]);
-        System.out.println("\n添加边 1-2 后，图为");
+        System.out.println("\nAfter adding edge 1-2, the graph is");
         graph.print();
 
-        /* 删除边 */
-        // 顶点 1, 3 即 v[0], v[1]
+        /* Remove edge */
+        // Vertices 1, 3 i.e., v[0], v[1]
         graph.removeEdge(v[0], v[1]);
-        System.out.println("\n删除边 1-3 后，图为");
+        System.out.println("\nAfter removing edge 1-3, the graph is");
         graph.print();
 
-        /* 添加顶点 */
+        /* Add vertex */
         Vertex v5 = new Vertex(6);
         graph.addVertex(v5);
-        System.out.println("\n添加顶点 6 后，图为");
+        System.out.println("\nAfter adding vertex 6, the graph is");
         graph.print();
 
-        /* 删除顶点 */
-        // 顶点 3 即 v[1]
+        /* Remove vertex */
+        // Vertex 3 i.e., v[1]
         graph.removeVertex(v[1]);
-        System.out.println("\n删除顶点 3 后，图为");
+        System.out.println("\nAfter removing vertex 3, the graph is");
         graph.print();
     }
 }

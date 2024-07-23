@@ -8,23 +8,23 @@ package utils;
 
 import java.util.*;
 
-/* 二叉树节点类 */
+/* Binary tree node class */
 public class TreeNode {
-    public int val; // 节点值
-    public int height; // 节点高度
-    public TreeNode left; // 左子节点引用
-    public TreeNode right; // 右子节点引用
+    public int val; // Node value
+    public int height; // Node height
+    public TreeNode left; // Reference to the left child node
+    public TreeNode right; // Reference to the right child node
 
-    /* 构造方法 */
+    /* Constructor */
     public TreeNode(int x) {
         val = x;
     }
 
-    // 序列化编码规则请参考：
+    // For serialization encoding rules, refer to:
     // https://www.hello-algo.com/chapter_tree/array_representation_of_tree/
-    // 二叉树的数组表示：
+    // Array representation of the binary tree:
     // [1, 2, 3, 4, None, 6, 7, 8, 9, None, None, 12, None, None, 15]
-    // 二叉树的链表表示：
+    // Linked list representation of the binary tree:
     //             /——— 15
     //         /——— 7
     //     /——— 3
@@ -36,7 +36,7 @@ public class TreeNode {
     //         \——— 4
     //             \——— 8
 
-    /* 将列表反序列化为二叉树：递归 */
+    /* Deserialize a list into a binary tree: Recursively */
     private static TreeNode listToTreeDFS(List<Integer> arr, int i) {
         if (i < 0 || i >= arr.size() || arr.get(i) == null) {
             return null;
@@ -47,12 +47,12 @@ public class TreeNode {
         return root;
     }
 
-    /* 将列表反序列化为二叉树 */
+    /* Deserialize a list into a binary tree */
     public static TreeNode listToTree(List<Integer> arr) {
         return listToTreeDFS(arr, 0);
     }
 
-    /* 将二叉树序列化为列表：递归 */
+    /* Serialize a binary tree into a list: Recursively */
     private static void treeToListDFS(TreeNode root, int i, List<Integer> res) {
         if (root == null)
             return;
@@ -64,7 +64,7 @@ public class TreeNode {
         treeToListDFS(root.right, 2 * i + 2, res);
     }
 
-    /* 将二叉树序列化为列表 */
+    /* Serialize a binary tree into a list */
     public static List<Integer> treeToList(TreeNode root) {
         List<Integer> res = new ArrayList<>();
         treeToListDFS(root, 0, res);

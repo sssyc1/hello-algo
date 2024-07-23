@@ -10,17 +10,17 @@ import utils.*;
 import java.util.*;
 
 public class top_k {
-    /* 基于堆查找数组中最大的 k 个元素 */
+    /* Using heap to find the largest k elements in an array */
     static Queue<Integer> topKHeap(int[] nums, int k) {
-        // 初始化小顶堆
+        // Initialize min-heap
         Queue<Integer> heap = new PriorityQueue<Integer>();
-        // 将数组的前 k 个元素入堆
+        // Enter the first k elements of the array into the heap
         for (int i = 0; i < k; i++) {
             heap.offer(nums[i]);
         }
-        // 从第 k+1 个元素开始，保持堆的长度为 k
+        // From the k+1th element, keep the heap length as k
         for (int i = k; i < nums.length; i++) {
-            // 若当前元素大于堆顶元素，则将堆顶元素出堆、当前元素入堆
+            // If the current element is larger than the heap top element, remove the heap top element and enter the current element into the heap
             if (nums[i] > heap.peek()) {
                 heap.poll();
                 heap.offer(nums[i]);
@@ -34,7 +34,7 @@ public class top_k {
         int k = 3;
 
         Queue<Integer> res = topKHeap(nums, k);
-        System.out.println("最大的 " + k + " 个元素为");
+        System.out.println("The largest " + k + " elements are");
         PrintUtil.printHeap(res);
     }
 }

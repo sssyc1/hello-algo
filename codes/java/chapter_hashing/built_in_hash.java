@@ -13,26 +13,26 @@ public class built_in_hash {
     public static void main(String[] args) {
         int num = 3;
         int hashNum = Integer.hashCode(num);
-        System.out.println("整数 " + num + " 的哈希值为 " + hashNum);
+        System.out.println("The hash value of integer " + num + " is " + hashNum);
 
         boolean bol = true;
         int hashBol = Boolean.hashCode(bol);
-        System.out.println("布尔量 " + bol + " 的哈希值为 " + hashBol);
+        System.out.println("The hash value of boolean " + bol + " is " + hashBol);
 
         double dec = 3.14159;
         int hashDec = Double.hashCode(dec);
-        System.out.println("小数 " + dec + " 的哈希值为 " + hashDec);
+        System.out.println("The hash value of decimal " + dec + " is " + hashDec);
 
-        String str = "Hello 算法";
+        String str = "Hello algorithm";
         int hashStr = str.hashCode();
-        System.out.println("字符串 " + str + " 的哈希值为 " + hashStr);
+        System.out.println("The hash value of string " + str + " is " + hashStr);
 
-        Object[] arr = { 12836, "小哈" };
+        Object[] arr = { 12836, "Ha" };
         int hashTup = Arrays.hashCode(arr);
-        System.out.println("数组 " + Arrays.toString(arr) + " 的哈希值为 " + hashTup);
+        System.out.println("The hash value of array " + Arrays.toString(arr) + " is " + hashTup);
 
         ListNode obj = new ListNode(0);
         int hashObj = obj.hashCode();
-        System.out.println("节点对象 " + obj + " 的哈希值为 " + hashObj);
+        System.out.println("The hash value of node object " + obj + " is " + hashObj);
     }
 }

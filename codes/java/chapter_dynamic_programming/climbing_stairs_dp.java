@@ -7,23 +7,23 @@
 package chapter_dynamic_programming;
 
 public class climbing_stairs_dp {
-    /* 爬楼梯：动态规划 */
+    /* Climbing stairs: Dynamic programming */
     public static int climbingStairsDP(int n) {
         if (n == 1 || n == 2)
             return n;
-        // 初始化 dp 表，用于存储子问题的解
+        // Initialize dp table, used to store subproblem solutions
         int[] dp = new int[n + 1];
-        // 初始状态：预设最小子问题的解
+        // Initial state: preset the smallest subproblem solution
         dp[1] = 1;
         dp[2] = 2;
-        // 状态转移：从较小子问题逐步求解较大子问题
+        // State transition: gradually solve larger subproblems from smaller ones
         for (int i = 3; i <= n; i++) {
             dp[i] = dp[i - 1] + dp[i - 2];
         }
         return dp[n];
     }
 
-    /* 爬楼梯：空间优化后的动态规划 */
+    /* Climbing stairs: Space-optimized dynamic programming */
     public static int climbingStairsDPComp(int n) {
         if (n == 1 || n == 2)
             return n;
@@ -40,9 +40,9 @@ public class climbing_stairs_dp {
         int n = 9;
 
         int res = climbingStairsDP(n);
-        System.out.println(String.format("爬 %d 阶楼梯共有 %d 种方案", n, res));
+        System.out.println(String.format("There are %d solutions to climb %d stairs", n, res));
 
         res = climbingStairsDPComp(n);
-        System.out.println(String.format("爬 %d 阶楼梯共有 %d 种方案", n, res));
+        System.out.println(String.format("There are %d solutions to climb %d stairs", n, res));
     }
 }

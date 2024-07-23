@@ -9,42 +9,42 @@ package chapter_searching;
 import utils.*;
 
 public class linear_search {
-    /* 线性查找（数组） */
+    /* Linear search (array) */
     static int linearSearchArray(int[] nums, int target) {
-        // 遍历数组
+        // Traverse array
         for (int i = 0; i < nums.length; i++) {
-            // 找到目标元素，返回其索引
+            // Found the target element, thus return its index
             if (nums[i] == target)
                 return i;
         }
-        // 未找到目标元素，返回 -1
+        // Did not find the target element, thus return -1
         return -1;
     }
 
-    /* 线性查找（链表） */
+    /* Linear search (linked list) */
     static ListNode linearSearchLinkedList(ListNode head, int target) {
-        // 遍历链表
+        // Traverse the list
         while (head != null) {
-            // 找到目标节点，返回之
+            // Found the target node, return it
             if (head.val == target)
                 return head;
             head = head.next;
         }
-        // 未找到目标节点，返回 null
+        // If the target node is not found, return null
         return null;
     }
 
     public static void main(String[] args) {
         int target = 3;
 
-        /* 在数组中执行线性查找 */
+        /* Perform linear search in array */
         int[] nums = { 1, 5, 3, 2, 4, 7, 5, 9, 10, 8 };
         int index = linearSearchArray(nums, target);
-        System.out.println("目标元素 3 的索引 = " + index);
+        System.out.println("The index of target element 3 is " + index);
 
-        /* 在链表中执行线性查找 */
+        /* Perform linear search in linked list */
         ListNode head = ListNode.arrToLinkedList(nums);
         ListNode node = linearSearchLinkedList(head, target);
-        System.out.println("目标节点值 3 的对应节点对象为 " + node);
+        System.out.println("The corresponding node object for target node value 3 is " + node);
     }
 }

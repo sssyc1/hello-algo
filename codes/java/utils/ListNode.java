@@ -6,7 +6,7 @@
 
 package utils;
 
-/* 链表节点 */
+/* Linked list node */
 public class ListNode {
     public int val;
     public ListNode next;
@@ -15,7 +15,7 @@ public class ListNode {
         val = x;
     }
 
-    /* 将列表反序列化为链表 */
+    /* Deserialize a list into a linked list */
     public static ListNode arrToLinkedList(int[] arr) {
         ListNode dum = new ListNode(0);
         ListNode head = dum;

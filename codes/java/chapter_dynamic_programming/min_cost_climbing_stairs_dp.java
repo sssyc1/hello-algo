@@ -9,24 +9,24 @@ package chapter_dynamic_programming;
 import java.util.Arrays;
 
 public class min_cost_climbing_stairs_dp {
-    /* 爬楼梯最小代价：动态规划 */
+    /* Climbing stairs with minimum cost: Dynamic programming */
     public static int minCostClimbingStairsDP(int[] cost) {
         int n = cost.length - 1;
         if (n == 1 || n == 2)
             return cost[n];
-        // 初始化 dp 表，用于存储子问题的解
+        // Initialize dp table, used to store subproblem solutions
         int[] dp = new int[n + 1];
-        // 初始状态：预设最小子问题的解
+        // Initial state: preset the smallest subproblem solution
         dp[1] = cost[1];
         dp[2] = cost[2];
-        // 状态转移：从较小子问题逐步求解较大子问题
+        // State transition: gradually solve larger subproblems from smaller ones
         for (int i = 3; i <= n; i++) {
             dp[i] = Math.min(dp[i - 1], dp[i - 2]) + cost[i];
         }
         return dp[n];
     }
 
-    /* 爬楼梯最小代价：空间优化后的动态规划 */
+    /* Climbing stairs with minimum cost: Space-optimized dynamic programming */
     public static int minCostClimbingStairsDPComp(int[] cost) {
         int n = cost.length - 1;
         if (n == 1 || n == 2)
@@ -42,12 +42,12 @@ public class min_cost_climbing_stairs_dp {
 
     public static void main(String[] args) {
         int[] cost = { 0, 1, 10, 1, 1, 1, 10, 1, 1, 10, 1 };
-        System.out.println(String.format("输入楼梯的代价列表为 %s", Arrays.toString(cost)));
+        System.out.println(String.format("Input the cost list for stairs as %s", Arrays.toString(cost)));
 
         int res = minCostClimbingStairsDP(cost);
-        System.out.println(String.format("爬完楼梯的最低代价为 %d", res));
+        System.out.println(String.format("Minimum cost to climb the stairs %d", res));
 
         res = minCostClimbingStairsDPComp(cost);
-        System.out.println(String.format("爬完楼梯的最低代价为 %d", res));
+        System.out.println(String.format("Minimum cost to climb the stairs %d", res));
     }
 }

@@ -7,19 +7,19 @@
 package chapter_dynamic_programming;
 
 public class unbounded_knapsack {
-    /* 完全背包：动态规划 */
+    /* Complete knapsack: Dynamic programming */
     static int unboundedKnapsackDP(int[] wgt, int[] val, int cap) {
         int n = wgt.length;
-        // 初始化 dp 表
+        // Initialize dp table
         int[][] dp = new int[n + 1][cap + 1];
-        // 状态转移
+        // State transition
         for (int i = 1; i <= n; i++) {
             for (int c = 1; c <= cap; c++) {
                 if (wgt[i - 1] > c) {
-                    // 若超过背包容量，则不选物品 i
+                    // If exceeding the knapsack capacity, do not choose item i
                     dp[i][c] = dp[i - 1][c];
                 } else {
-                    // 不选和选物品 i 这两种方案的较大值
+                    // The greater value between not choosing and choosing item i
                     dp[i][c] = Math.max(dp[i - 1][c], dp[i][c - wgt[i - 1]] + val[i - 1]);
                 }
             }
@@ -27,19 +27,19 @@ public class unbounded_knapsack {
         return dp[n][cap];
     }
 
-    /* 完全背包：空间优化后的动态规划 */
+    /* Complete knapsack: Space-optimized dynamic programming */
     static int unboundedKnapsackDPComp(int[] wgt, int[] val, int cap) {
         int n = wgt.length;
-        // 初始化 dp 表
+        // Initialize dp table
         int[] dp = new int[cap + 1];
-        // 状态转移
+        // State transition
         for (int i = 1; i <= n; i++) {
             for (int c = 1; c <= cap; c++) {
                 if (wgt[i - 1] > c) {
-                    // 若超过背包容量，则不选物品 i
+                    // If exceeding the knapsack capacity, do not choose item i
                     dp[c] = dp[c];
                 } else {
-                    // 不选和选物品 i 这两种方案的较大值
+                    // The greater value between not choosing and choosing item i
                     dp[c] = Math.max(dp[c], dp[c - wgt[i - 1]] + val[i - 1]);
                 }
             }
@@ -52,12 +52,12 @@ public class unbounded_knapsack {
         int[] val = { 5, 11, 15 };
         int cap = 4;
 
-        // 动态规划
+        // Dynamic programming
         int res = unboundedKnapsackDP(wgt, val, cap);
-        System.out.println("不超过背包容量的最大物品价值为 " + res);
+        System.out.println("The maximum value within the bag capacity is " + res);
 
-        // 空间优化后的动态规划
+        // Space-optimized dynamic programming
         res = unboundedKnapsackDPComp(wgt, val, cap);
-        System.out.println("不超过背包容量的最大物品价值为 " + res);
+        System.out.println("The maximum value within the bag capacity is " + res);
     }
 }

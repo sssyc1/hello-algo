@@ -10,47 +10,47 @@ import utils.*;
 import java.util.*;
 
 public class preorder_traversal_iii_template {
-    /* 判断当前状态是否为解 */
+    /* Determine if the current state is a solution */
     static boolean isSolution(List<TreeNode> state) {
         return !state.isEmpty() && state.get(state.size() - 1).val == 7;
     }
 
-    /* 记录解 */
+    /* Record solution */
     static void recordSolution(List<TreeNode> state, List<List<TreeNode>> res) {
         res.add(new ArrayList<>(state));
     }
 
-    /* 判断在当前状态下，该选择是否合法 */
+    /* Determine if the choice is legal under the current state */
     static boolean isValid(List<TreeNode> state, TreeNode choice) {
         return choice != null && choice.val != 3;
     }
 
-    /* 更新状态 */
+    /* Update state */
     static void makeChoice(List<TreeNode> state, TreeNode choice) {
         state.add(choice);
     }
 
-    /* 恢复状态 */
+    /* Restore state */
     static void undoChoice(List<TreeNode> state, TreeNode choice) {
         state.remove(state.size() - 1);
     }
 
-    /* 回溯算法：例题三 */
+    /* Backtracking algorithm: Example three */
     static void backtrack(List<TreeNode> state, List<TreeNode> choices, List<List<TreeNode>> res) {
-        // 检查是否为解
+        // Check if it's a solution
         if (isSolution(state)) {
-            // 记录解
+            // Record solution
             recordSolution(state, res);
         }
-        // 遍历所有选择
+        // Traverse all choices
         for (TreeNode choice : choices) {
-            // 剪枝：检查选择是否合法
+            // Pruning: check if the choice is legal
             if (isValid(state, choice)) {
-                // 尝试：做出选择，更新状态
+                // Attempt: make a choice, update the state
                 makeChoice(state, choice);
-                // 进行下一轮选择
+                // Proceed to the next round of selection
                 backtrack(state, Arrays.asList(choice.left, choice.right), res);
-                // 回退：撤销选择，恢复到之前的状态
+                // Retract: undo the choice, restore to the previous state
                 undoChoice(state, choice);
             }
         }
@@ -58,14 +58,14 @@ public class preorder_traversal_iii_template {
 
     public static void main(String[] args) {
         TreeNode root = TreeNode.listToTree(Arrays.asList(1, 7, 3, 4, 5, 6, 7));
-        System.out.println("\n初始化二叉树");
+        System.out.println("\nInitialize binary tree");
         PrintUtil.printTree(root);
 
-        // 回溯算法
+        // Backtracking algorithm
         List<List<TreeNode>> res = new ArrayList<>();
         backtrack(new ArrayList<>(), Arrays.asList(root), res);
 
-        System.out.println("\n输出所有根节点到节点 7 的路径，要求路径中不包含值为 3 的节点");
+        System.out.println("\nOutput all root-to-node 7 paths, requiring paths not to include nodes with value 3");
         for (List<TreeNode> path : res) {
             List<Integer> vals = new ArrayList<>();
             for (TreeNode node : path) {

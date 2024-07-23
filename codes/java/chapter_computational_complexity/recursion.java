@@ -9,53 +9,53 @@ package chapter_computational_complexity;
 import java.util.Stack;
 
 public class recursion {
-    /* 递归 */
+    /* Recursion */
     static int recur(int n) {
-        // 终止条件
+        // Termination condition
         if (n == 1)
             return 1;
-        // 递：递归调用
+        // Recursive: recursive call
         int res = recur(n - 1);
-        // 归：返回结果
+        // Return: return result
         return n + res;
     }
 
-    /* 使用迭代模拟递归 */
+    /* Simulate recursion with iteration */
     static int forLoopRecur(int n) {
-        // 使用一个显式的栈来模拟系统调用栈
+        // Use an explicit stack to simulate the system call stack
         Stack<Integer> stack = new Stack<>();
         int res = 0;
-        // 递：递归调用
+        // Recursive: recursive call
         for (int i = n; i > 0; i--) {
-            // 通过“入栈操作”模拟“递”
+            // Simulate "recursive" by "pushing onto the stack"
             stack.push(i);
         }
-        // 归：返回结果
+        // Return: return result
         while (!stack.isEmpty()) {
-            // 通过“出栈操作”模拟“归”
+            // Simulate "return" by "popping from the stack"
             res += stack.pop();
         }
         // res = 1+2+3+...+n
         return res;
     }
 
-    /* 尾递归 */
+    /* Tail recursion */
     static int tailRecur(int n, int res) {
-        // 终止条件
+        // Termination condition
         if (n == 0)
             return res;
-        // 尾递归调用
+        // Tail recursive call
         return tailRecur(n - 1, res + n);
     }
 
-    /* 斐波那契数列：递归 */
+    /* Fibonacci sequence: Recursion */
     static int fib(int n) {
-        // 终止条件 f(1) = 0, f(2) = 1
+        // Termination condition f(1) = 0, f(2) = 1
         if (n == 1 || n == 2)
             return n - 1;
-        // 递归调用 f(n) = f(n-1) + f(n-2)
+        // Recursive call f(n) = f(n-1) + f(n-2)
         int res = fib(n - 1) + fib(n - 2);
-        // 返回结果 f(n)
+        // Return result f(n)
         return res;
     }
 
@@ -65,15 +65,15 @@ public class recursion {
         int res;
 
         res = recur(n);
-        System.out.println("\n递归函数的求和结果 res = " + res);
+        System.out.println("\nSum result of the recursive function res = " + res);
 
         res = forLoopRecur(n);
-        System.out.println("\n使用迭代模拟递归求和结果 res = " + res);
+        System.out.println("\nSum result using iteration to simulate recursion res = " + res);
 
         res = tailRecur(n, 0);
-        System.out.println("\n尾递归函数的求和结果 res = " + res);
+        System.out.println("\nSum result of the tail-recursive function res = " + res);
 
         res = fib(n);
-        System.out.println("\n斐波那契数列的第 " + n + " 项为 " + res);
+        System.out.println("\nThe " + n + "th number in the Fibonacci sequence is " + res);
     }
 }

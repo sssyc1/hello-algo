@@ -13,34 +13,34 @@ public class preorder_traversal_ii_compact {
     static List<TreeNode> path;
     static List<List<TreeNode>> res;
 
-    /* 前序遍历：例题二 */
+    /* Pre-order traversal: Example two */
     static void preOrder(TreeNode root) {
         if (root == null) {
             return;
         }
-        // 尝试
+        // Attempt
         path.add(root);
         if (root.val == 7) {
-            // 记录解
+            // Record solution
             res.add(new ArrayList<>(path));
         }
         preOrder(root.left);
         preOrder(root.right);
-        // 回退
+        // Retract
         path.remove(path.size() - 1);
     }
 
     public static void main(String[] args) {
         TreeNode root = TreeNode.listToTree(Arrays.asList(1, 7, 3, 4, 5, 6, 7));
-        System.out.println("\n初始化二叉树");
+        System.out.println("\nInitialize binary tree");
         PrintUtil.printTree(root);
 
-        // 前序遍历
+        // Pre-order traversal
         path = new ArrayList<>();
         res = new ArrayList<>();
         preOrder(root);
 
-        System.out.println("\n输出所有根节点到节点 7 的路径");
+        System.out.println("\nOutput all root-to-node 7 paths");
         for (List<TreeNode> path : res) {
             List<Integer> vals = new ArrayList<>();
             for (TreeNode node : path) {

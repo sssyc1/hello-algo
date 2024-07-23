@@ -10,59 +10,59 @@ import utils.*;
 import java.util.*;
 
 public class binary_tree_dfs {
-    // 初始化列表，用于存储遍历序列
+    // Initialize the list for storing traversal sequences
     static ArrayList<Integer> list = new ArrayList<>();
 
-    /* 前序遍历 */
+    /* Pre-order traversal */
     static void preOrder(TreeNode root) {
         if (root == null)
             return;
-        // 访问优先级：根节点 -> 左子树 -> 右子树
+        // Visit priority: root node -> left subtree -> right subtree
         list.add(root.val);
         preOrder(root.left);
         preOrder(root.right);
     }
 
-    /* 中序遍历 */
+    /* In-order traversal */
     static void inOrder(TreeNode root) {
         if (root == null)
             return;
-        // 访问优先级：左子树 -> 根节点 -> 右子树
+        // Visit priority: left subtree -> root node -> right subtree
         inOrder(root.left);
         list.add(root.val);
         inOrder(root.right);
     }
 
-    /* 后序遍历 */
+    /* Post-order traversal */
     static void postOrder(TreeNode root) {
         if (root == null)
             return;
-        // 访问优先级：左子树 -> 右子树 -> 根节点
+        // Visit priority: left subtree -> right subtree -> root node
         postOrder(root.left);
         postOrder(root.right);
         list.add(root.val);
     }
 
     public static void main(String[] args) {
-        /* 初始化二叉树 */
-        // 这里借助了一个从数组直接生成二叉树的函数
+        /* Initialize binary tree */
+        // Use a specific function to convert an array into a binary tree
         TreeNode root = TreeNode.listToTree(Arrays.asList(1, 2, 3, 4, 5, 6, 7));
-        System.out.println("\n初始化二叉树\n");
+        System.out.println("\nInitialize binary tree\n");
         PrintUtil.printTree(root);
 
-        /* 前序遍历 */
+        /* Pre-order traversal */
         list.clear();
         preOrder(root);
-        System.out.println("\n前序遍历的节点打印序列 = " + list);
+        System.out.println("\nPrint sequence of nodes from pre-order traversal = " + list);
 
-        /* 中序遍历 */
+        /* In-order traversal */
         list.clear();
         inOrder(root);
-        System.out.println("\n中序遍历的节点打印序列 = " + list);
+        System.out.println("\nPrint sequence of nodes from in-order traversal = " + list);
 
-        /* 后序遍历 */
+        /* Post-order traversal */
         list.clear();
         postOrder(root);
-        System.out.println("\n后序遍历的节点打印序列 = " + list);
+        System.out.println("\nPrint sequence of nodes from post-order traversal = " + list);
     }
 }

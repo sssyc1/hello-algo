@@ -10,57 +10,57 @@ import java.util.*;
 
 public class list {
     public static void main(String[] args) {
-        /* 初始化列表 */
-        // 注意数组的元素类型是 int[] 的包装类 Integer[]
+        /* Initialize list */
+        // The array's element type is Integer[], a wrapper class for int
         Integer[] numbers = new Integer[] { 1, 3, 2, 5, 4 };
         List<Integer> nums = new ArrayList<>(Arrays.asList(numbers));
-        System.out.println("列表 nums = " + nums);
+        System.out.println("List nums = " + nums);
 
-        /* 访问元素 */
+        /* Access element */
         int num = nums.get(1);
-        System.out.println("访问索引 1 处的元素，得到 num = " + num);
+        System.out.println("Access the element at index 1, obtained num = " + num);
 
-        /* 更新元素 */
+        /* Update element */
         nums.set(1, 0);
-        System.out.println("将索引 1 处的元素更新为 0 ，得到 nums = " + nums);
+        System.out.println("Update the element at index 1 to 0, resulting in nums = " + nums);
 
-        /* 清空列表 */
+        /* Clear list */
         nums.clear();
-        System.out.println("清空列表后 nums = " + nums);
+        System.out.println("After clearing the list, nums = " + nums);
 
-        /* 在尾部添加元素 */
+        /* Add element at the end */
         nums.add(1);
         nums.add(3);
         nums.add(2);
         nums.add(5);
         nums.add(4);
-        System.out.println("添加元素后 nums = " + nums);
+        System.out.println("After adding elements, nums = " + nums);
 
-        /* 在中间插入元素 */
+        /* Insert element in the middle */
         nums.add(3, 6);
-        System.out.println("在索引 3 处插入数字 6 ，得到 nums = " + nums);
+        System.out.println("Insert the number 6 at index 3, resulting in nums = " + nums);
 
-        /* 删除元素 */
+        /* Remove element */
         nums.remove(3);
-        System.out.println("删除索引 3 处的元素，得到 nums = " + nums);
+        System.out.println("Remove the element at index 3, resulting in nums = " + nums);
 
-        /* 通过索引遍历列表 */
+        /* Traverse the list by index */
         int count = 0;
         for (int i = 0; i < nums.size(); i++) {
             count += nums.get(i);
         }
-        /* 直接遍历列表元素 */
+        /* Traverse the list elements */
         for (int x : nums) {
             count += x;
         }
 
-        /* 拼接两个列表 */
+        /* Concatenate two lists */
         List<Integer> nums1 = new ArrayList<>(Arrays.asList(new Integer[] { 6, 8, 7, 10, 9 }));
         nums.addAll(nums1);
-        System.out.println("将列表 nums1 拼接到 nums 之后，得到 nums = " + nums);
+        System.out.println("Concatenate list nums1 to nums, resulting in nums = " + nums);
 
-        /* 排序列表 */
+        /* Sort list */
         Collections.sort(nums);
-        System.out.println("排序列表后 nums = " + nums);
+        System.out.println("After sorting the list, nums = " + nums);
     }
 }

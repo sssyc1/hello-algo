@@ -8,122 +8,122 @@ package chapter_tree;
 
 import utils.*;
 
-/* AVL 树 */
+/* AVL tree */
 class AVLTree {
-    TreeNode root; // 根节点
+    TreeNode root; // Root node
 
-    /* 获取节点高度 */
+    /* Get node height */
     public int height(TreeNode node) {
-        // 空节点高度为 -1 ，叶节点高度为 0
+        // Empty node height is -1, leaf node height is 0
         return node == null ? -1 : node.height;
     }
 
-    /* 更新节点高度 */
+    /* Update node height */
     private void updateHeight(TreeNode node) {
-        // 节点高度等于最高子树高度 + 1
+        // Node height equals the height of the tallest subtree + 1
         node.height = Math.max(height(node.left), height(node.right)) + 1;
     }
 
-    /* 获取平衡因子 */
+    /* Get balance factor */
     public int balanceFactor(TreeNode node) {
-        // 空节点平衡因子为 0
+        // Empty node balance factor is 0
         if (node == null)
             return 0;
-        // 节点平衡因子 = 左子树高度 - 右子树高度
+        // Node balance factor = left subtree height - right subtree height
         return height(node.left) - height(node.right);
     }
 
-    /* 右旋操作 */
+    /* Right rotation operation */
     private TreeNode rightRotate(TreeNode node) {
         TreeNode child = node.left;
         TreeNode grandChild = child.right;
-        // 以 child 为原点，将 node 向右旋转
+        // Rotate node to the right around child
         child.right = node;
         node.left = grandChild;
-        // 更新节点高度
+        // Update node height
         updateHeight(node);
         updateHeight(child);
-        // 返回旋转后子树的根节点
+        // Return the root of the subtree after rotation
         return child;
     }
 
-    /* 左旋操作 */
+    /* Left rotation operation */
     private TreeNode leftRotate(TreeNode node) {
         TreeNode child = node.right;
         TreeNode grandChild = child.left;
-        // 以 child 为原点，将 node 向左旋转
+        // Rotate node to the left around child
         child.left = node;
         node.right = grandChild;
-        // 更新节点高度
+        // Update node height
         updateHeight(node);
         updateHeight(child);
-        // 返回旋转后子树的根节点
+        // Return the root of the subtree after rotation
         return child;
     }
 
-    /* 执行旋转操作，使该子树重新恢复平衡 */
+    /* Perform rotation operation to restore balance to the subtree */
     private TreeNode rotate(TreeNode node) {
-        // 获取节点 node 的平衡因子
+        // Get the balance factor of node
         int balanceFactor = balanceFactor(node);
-        // 左偏树
+        // Left-leaning tree
         if (balanceFactor > 1) {
             if (balanceFactor(node.left) >= 0) {
-                // 右旋
+                // Right rotation
                 return rightRotate(node);
             } else {
-                // 先左旋后右旋
+                // First left rotation then right rotation
                 node.left = leftRotate(node.left);
                 return rightRotate(node);
             }
         }
-        // 右偏树
+        // Right-leaning tree
         if (balanceFactor < -1) {
             if (balanceFactor(node.right) <= 0) {
-                // 左旋
+                // Left rotation
                 return leftRotate(node);
             } else {
-                // 先右旋后左旋
+                // First right rotation then left rotation
                 node.right = rightRotate(node.right);
                 return leftRotate(node);
             }
         }
-        // 平衡树，无须旋转，直接返回
+        // Balanced tree, no rotation needed, return
         return node;
     }
 
-    /* 插入节点 */
+    /* Insert node */
     public void insert(int val) {
         root = insertHelper(root, val);
     }
 
-    /* 递归插入节点（辅助方法） */
+    /* Recursively insert node (helper method) */
     private TreeNode insertHelper(TreeNode node, int val) {
         if (node == null)
             return new TreeNode(val);
-        /* 1. 查找插入位置并插入节点 */
+        /* 1. Find insertion position and insert node */
         if (val < node.val)
             node.left = insertHelper(node.left, val);
         else if (val > node.val)
             node.right = insertHelper(node.right, val);
         else
-            return node; // 重复节点不插入，直接返回
-        updateHeight(node); // 更新节点高度
-        /* 2. 执行旋转操作，使该子树重新恢复平衡 */
+            return node; // Do not insert duplicate nodes, return
+        updateHeight(node); // Update node height
+        /* 2. Perform rotation operation to restore balance to the subtree */
         node = rotate(node);
-        // 返回子树的根节点
+        // Return the root node of the subtree
         return node;
     }
 
-    /* 删除节点 */
+    /* Remove node */
     public void remove(int val) {
         root = removeHelper(root, val);
     }
 
-    /* 递归删除节点（辅助方法） */
+    /* Recursively remove node (helper method) */
     private TreeNode removeHelper(TreeNode node, int val) {
         if (node == null)
             return null;
-        /* 1. 查找节点并删除 */
+        /* 1. Find and remove the node */
         if (val < node.val)
             node.left = removeHelper(node.left, val);
         else if (val > node.val)
@@ -131,14 +131,14 @@ class AVLTree {
         else {
             if (node.left == null || node.right == null) {
                 TreeNode child = node.left != null ? node.left : node.right;
-                // 子节点数量 = 0 ，直接删除 node 并返回
+                // Number of child nodes = 0, remove node and return
                 if (child == null)
                     return null;
-                // 子节点数量 = 1 ，直接删除 node
+                // Number of child nodes = 1, remove node
                 else
                     node = child;
             } else {
-                // 子节点数量 = 2 ，则将中序遍历的下个节点删除，并用该节点替换当前节点
+                // Number of child nodes = 2, remove the next node in in-order traversal and replace the current node with it
                 TreeNode temp = node.right;
                 while (temp.left != null) {
                     temp = temp.left;
@@ -147,29 +147,29 @@ class AVLTree {
                 node.val = temp.val;
             }
         }
-        updateHeight(node); // 更新节点高度
-        /* 2. 执行旋转操作，使该子树重新恢复平衡 */
+        updateHeight(node); // Update node height
+        /* 2. Perform rotation operation to restore balance to the subtree */
         node = rotate(node);
-        // 返回子树的根节点
+        // Return the root node of the subtree
         return node;
     }
 
-    /* 查找节点 */
+    /* Search node */
     public TreeNode search(int val) {
         TreeNode cur = root;
-        // 循环查找，越过叶节点后跳出
+        // Loop find, break after passing leaf nodes
         while (cur != null) {
-            // 目标节点在 cur 的右子树中
+            // Target node is in cur's right subtree
             if (cur.val < val)
                 cur = cur.right;
-            // 目标节点在 cur 的左子树中
+            // Target node is in cur's left subtree
             else if (cur.val > val)
                 cur = cur.left;
-            // 找到目标节点，跳出循环
+            // Found target node, break loop
             else
                 break;
         }
-        // 返回目标节点
+        // Return target node
         return cur;
     }
 }
@@ -177,22 +177,22 @@ class AVLTree {
 public class avl_tree {
     static void testInsert(AVLTree tree, int val) {
         tree.insert(val);
-        System.out.println("\n插入节点 " + val + " 后，AVL 树为");
+        System.out.println("\nAfter inserting node " + val + ", the AVL tree is ");
         PrintUtil.printTree(tree.root);
     }
 
     static void testRemove(AVLTree tree, int val) {
         tree.remove(val);
-        System.out.println("\n删除节点 " + val + " 后，AVL 树为");
+        System.out.println("\nAfter removing node " + val + ", the AVL tree is ");
         PrintUtil.printTree(tree.root);
     }
 
     public static void main(String[] args) {
-        /* 初始化空 AVL 树 */
+        /* Initialize empty AVL tree */
         AVLTree avlTree = new AVLTree();
 
-        /* 插入节点 */
-        // 请关注插入节点后，AVL 树是如何保持平衡的
+        /* Insert node */
+        // Notice how the AVL tree maintains balance after inserting nodes
         testInsert(avlTree, 1);
         testInsert(avlTree, 2);
         testInsert(avlTree, 3);
@@ -204,17 +204,17 @@ public class avl_tree {
         testInsert(avlTree, 10);
         testInsert(avlTree, 6);
 
-        /* 插入重复节点 */
+        /* Insert duplicate node */
         testInsert(avlTree, 7);
 
-        /* 删除节点 */
-        // 请关注删除节点后，AVL 树是如何保持平衡的
-        testRemove(avlTree, 8); // 删除度为 0 的节点
-        testRemove(avlTree, 5); // 删除度为 1 的节点
-        testRemove(avlTree, 4); // 删除度为 2 的节点
+        /* Remove node */
+        // Notice how the AVL tree maintains balance after removing nodes
+        testRemove(avlTree, 8); // Remove node with degree 0
+        testRemove(avlTree, 5); // Remove node with degree 1
+        testRemove(avlTree, 4); // Remove node with degree 2
 
-        /* 查询节点 */
+        /* Search node */
         TreeNode node = avlTree.search(7);
-        System.out.println("\n查找到的节点对象为 " + node + "，节点值 = " + node.val);
+        System.out.println("\nThe found node object is " + node + ", node value = " + node.val);
     }
 }

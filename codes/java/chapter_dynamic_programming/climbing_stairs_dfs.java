@@ -7,9 +7,9 @@
 package chapter_dynamic_programming;
 
 public class climbing_stairs_dfs {
-    /* 搜索 */
+    /* Search */
     public static int dfs(int i) {
-        // 已知 dp[1] 和 dp[2] ，返回之
+        // Known dp[1] and dp[2], return them
         if (i == 1 || i == 2)
             return i;
         // dp[i] = dp[i-1] + dp[i-2]
@@ -17,7 +17,7 @@ public class climbing_stairs_dfs {
         return count;
     }
 
-    /* 爬楼梯：搜索 */
+    /* Climbing stairs: Search */
     public static int climbingStairsDFS(int n) {
         return dfs(n);
     }
@@ -26,6 +26,6 @@ public class climbing_stairs_dfs {
         int n = 9;
 
         int res = climbingStairsDFS(n);
-        System.out.println(String.format("爬 %d 阶楼梯共有 %d 种方案", n, res));
+        System.out.println(String.format("There are %d solutions to climb %d stairs", n, res));
     }
 }

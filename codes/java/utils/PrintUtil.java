@@ -19,7 +19,7 @@ class Trunk {
 };
 
 public class PrintUtil {
-    /* 打印矩阵（Array） */
+    /* Print matrix (Array) */
     public static <T> void printMatrix(T[][] matrix) {
         System.out.println("[");
         for (T[] row : matrix) {
@@ -28,7 +28,7 @@ public class PrintUtil {
         System.out.println("]");
     }
 
-    /* 打印矩阵（List） */
+    /* Print matrix (List) */
     public static <T> void printMatrix(List<List<T>> matrix) {
         System.out.println("[");
         for (List<T> row : matrix) {
@@ -37,7 +37,7 @@ public class PrintUtil {
         System.out.println("]");
     }
 
-    /* 打印链表 */
+    /* Print linked list */
     public static void printLinkedList(ListNode head) {
         List<String> list = new ArrayList<>();
         while (head != null) {
@@ -47,13 +47,13 @@ public class PrintUtil {
         System.out.println(String.join(" -> ", list));
     }
 
-    /* 打印二叉树 */
+    /* Print binary tree */
     public static void printTree(TreeNode root) {
         printTree(root, null, false);
     }
 
     /**
-     * 打印二叉树
+     * Print binary tree
      * This tree printer is borrowed from TECHIE DELIGHT
      * https://www.techiedelight.com/c-program-print-binary-tree/
      */
@@ -97,19 +97,19 @@ public class PrintUtil {
         System.out.print(p.str);
     }
 
-    /* 打印哈希表 */
+    /* Print hash table */
     public static <K, V> void printHashMap(Map<K, V> map) {
         for (Map.Entry<K, V> kv : map.entrySet()) {
             System.out.println(kv.getKey() + " -> " + kv.getValue());
         }
     }
 
-    /* 打印堆（优先队列） */
+    /* Print heap (Priority queue) */
     public static void printHeap(Queue<Integer> queue) {
         List<Integer> list = new ArrayList<>(queue);
-        System.out.print("堆的数组表示：");
+        System.out.print("Array representation of the heap:");
         System.out.println(list);
-        System.out.println("堆的树状表示：");
+        System.out.println("Tree representation of the heap:");
         TreeNode root = TreeNode.listToTree(list);
         printTree(root);
     }

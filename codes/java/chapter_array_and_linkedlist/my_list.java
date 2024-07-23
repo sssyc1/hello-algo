@@ -8,96 +8,96 @@ package chapter_array_and_linkedlist;
 
 import java.util.*;
 
-/* 列表类 */
+/* List class */
 class MyList {
-    private int[] arr; // 数组（存储列表元素）
-    private int capacity = 10; // 列表容量
-    private int size = 0; // 列表长度（当前元素数量）
-    private int extendRatio = 2; // 每次列表扩容的倍数
+    private int[] arr; // Array (stores list elements)
+    private int capacity = 10; // List capacity
+    private int size = 0; // List length (current number of elements)
+    private int extendRatio = 2; // Multiple for each list expansion
 
-    /* 构造方法 */
+    /* Constructor */
     public MyList() {
         arr = new int[capacity];
     }
 
-    /* 获取列表长度（当前元素数量） */
+    /* Get list length (current number of elements) */
     public int size() {
         return size;
     }
 
-    /* 获取列表容量 */
+    /* Get list capacity */
     public int capacity() {
         return capacity;
     }
 
-    /* 访问元素 */
+    /* Access element */
     public int get(int index) {
-        // 索引如果越界，则抛出异常，下同
+        // If the index is out of bounds, throw an exception, as below
         if (index < 0 || index >= size)
-            throw new IndexOutOfBoundsException("索引越界");
+            throw new IndexOutOfBoundsException("Index out of bounds");
         return arr[index];
     }
 
-    /* 更新元素 */
+    /* Update element */
     public void set(int index, int num) {
         if (index < 0 || index >= size)
-            throw new IndexOutOfBoundsException("索引越界");
+            throw new IndexOutOfBoundsException("Index out of bounds");
         arr[index] = num;
     }
 
-    /* 在尾部添加元素 */
+    /* Add element at the end */
     public void add(int num) {
-        // 元素数量超出容量时，触发扩容机制
+        // When the number of elements exceeds capacity, trigger the expansion mechanism
         if (size == capacity())
             extendCapacity();
         arr[size] = num;
-        // 更新元素数量
+        // Update the number of elements
         size++;
     }
 
-    /* 在中间插入元素 */
+    /* Insert element in the middle */
     public void insert(int index, int num) {
         if (index < 0 || index >= size)
-            throw new IndexOutOfBoundsException("索引越界");
-        // 元素数量超出容量时，触发扩容机制
+            throw new IndexOutOfBoundsException("Index out of bounds");
+        // When the number of elements exceeds capacity, trigger the expansion mechanism
         if (size == capacity())
             extendCapacity();
-        // 将索引 index 以及之后的元素都向后移动一位
+        // Move all elements after `index` one position backward
         for (int j = size - 1; j >= index; j--) {
             arr[j + 1] = arr[j];
         }
         arr[index] = num;
-        // 更新元素数量
+        // Update the number of elements
         size++;
     }
 
-    /* 删除元素 */
+    /* Remove element */
     public int remove(int index) {
-        if (index < 0 || index >= size)
-            throw new IndexOutOfBoundsException("索引越界");
+        if (index < 0 || index  >= size)
+            throw new IndexOutOfBoundsException("Index out of bounds");
         int num = arr[index];
-        // 将将索引 index 之后的元素都向前移动一位
+        // Move all elements after `index` one position forward
         for (int j = index; j < size - 1; j++) {
             arr[j] = arr[j + 1];
         }
-        // 更新元素数量
+        // Update the number of elements
         size--;
-        // 返回被删除的元素
+        // Return the removed element
         return num;
     }
 
-    /* 列表扩容 */
+    /* Extend list */
     public void extendCapacity() {
-        // 新建一个长度为原数组 extendRatio 倍的新数组，并将原数组复制到新数组
+        // Create a new array with a length multiple of the original array by extendRatio, and copy the original array to the new array
         arr = Arrays.copyOf(arr, capacity() * extendRatio);
-        // 更新列表容量
+        // Update list capacity
         capacity = arr.length;
     }
 
-    /* 将列表转换为数组 */
+    /* Convert the list to an array */
     public int[] toArray() {
         int size = size();
-        // 仅转换有效长度范围内的列表元素
+        // Only convert elements within valid length range
         int[] arr = new int[size];
         for (int i = 0; i < size; i++) {
             arr[i] = get(i);
@@ -109,39 +109,39 @@ class MyList {
 public class my_list {
     /* Driver Code */
     public static void main(String[] args) {
-        /* 初始化列表 */
+        /* Initialize list */
         MyList nums = new MyList();
-        /* 在尾部添加元素 */
+        /* Add element at the end */
         nums.add(1);
         nums.add(3);
         nums.add(2);
         nums.add(5);
         nums.add(4);
-        System.out.println("列表 nums = " + Arrays.toString(nums.toArray()) +
-                " ，容量 = " + nums.capacity() + " ，长度 = " + nums.size());
+        System.out.println("List nums = " + Arrays.toString(nums.toArray()) +
+                ", capacity = " + nums.capacity() + ", length = " + nums.size());
 
-        /* 在中间插入元素 */
+        /* Insert element in the middle */
         nums.insert(3, 6);
-        System.out.println("在索引 3 处插入数字 6 ，得到 nums = " + Arrays.toString(nums.toArray()));
+        System.out.println("Insert the number 6 at index 3, resulting in nums = " + Arrays.toString(nums.toArray()));
 
-        /* 删除元素 */
+        /* Remove element */
         nums.remove(3);
-        System.out.println("删除索引 3 处的元素，得到 nums = " + Arrays.toString(nums.toArray()));
+        System.out.println("Remove the element at index 3, resulting in nums = " + Arrays.toString(nums.toArray()));
 
-        /* 访问元素 */
+        /* Access element */
         int num = nums.get(1);
-        System.out.println("访问索引 1 处的元素，得到 num = " + num);
+        System.out.println("Access the element at index 1, obtained num = " + num);
 
-        /* 更新元素 */
+        /* Update element */
         nums.set(1, 0);
-        System.out.println("将索引 1 处的元素更新为 0 ，得到 nums = " + Arrays.toString(nums.toArray()));
+        System.out.println("Update the element at index 1 to 0, resulting in nums = " + Arrays.toString(nums.toArray()));
 
-        /* 测试扩容机制 */
+        /* Test expansion mechanism */
         for (int i = 0; i < 10; i++) {
-            // 在 i = 5 时，列表长度将超出列表容量，此时触发扩容机制
+            // At i = 5, the list length will exceed the list capacity, triggering the expansion mechanism at this time
             nums.add(i);
         }
-        System.out.println("扩容后的列表 nums = " + Arrays.toString(nums.toArray()) +
-                " ，容量 = " + nums.capacity() + " ，长度 = " + nums.size());
+        System.out.println("After extending, list nums = " + Arrays.toString(nums.toArray()) +
+                ", capacity = " + nums.capacity() + ", length = " + nums.size());
     }
 }

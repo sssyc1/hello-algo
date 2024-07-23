@@ -10,59 +10,59 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class array {
-    /* 随机访问元素 */
+    /* Random access to elements */
     static int randomAccess(int[] nums) {
-        // 在区间 [0, nums.length) 中随机抽取一个数字
+        // Randomly select a number in the interval [0, nums.length)
         int randomIndex = ThreadLocalRandom.current().nextInt(0, nums.length);
-        // 获取并返回随机元素
+        // Retrieve and return a random element
         int randomNum = nums[randomIndex];
         return randomNum;
     }
 
-    /* 扩展数组长度 */
+    /* Extend array length */
     static int[] extend(int[] nums, int enlarge) {
-        // 初始化一个扩展长度后的数组
+        // Initialize an extended length array
         int[] res = new int[nums.length + enlarge];
-        // 将原数组中的所有元素复制到新数组
+        // Copy all elements from the original array to the new array
         for (int i = 0; i < nums.length; i++) {
             res[i] = nums[i];
         }
-        // 返回扩展后的新数组
+        // Return the new array after expansion
         return res;
     }
 
-    /* 在数组的索引 index 处插入元素 num */
+    /* Insert element num at `index` */
     static void insert(int[] nums, int num, int index) {
-        // 把索引 index 以及之后的所有元素向后移动一位
+        // Move all elements after `index` one position backward
         for (int i = nums.length - 1; i > index; i--) {
             nums[i] = nums[i - 1];
         }
-        // 将 num 赋给 index 处的元素
+        // Assign num to the element at index
         nums[index] = num;
     }
 
-    /* 删除索引 index 处的元素 */
+    /* Remove the element at `index` */
     static void remove(int[] nums, int index) {
-        // 把索引 index 之后的所有元素向前移动一位
+        // Move all elements after `index` one position forward
         for (int i = index; i < nums.length - 1; i++) {
             nums[i] = nums[i + 1];
         }
     }
 
-    /* 遍历数组 */
+    /* Traverse array */
     static void traverse(int[] nums) {
         int count = 0;
-        // 通过索引遍历数组
+        // Traverse array by index
         for (int i = 0; i < nums.length; i++) {
             count += nums[i];
         }
-        // 直接遍历数组元素
+        // Traverse array elements
         for (int num : nums) {
             count += num;
         }
     }
 
-    /* 在数组中查找指定元素 */
+    /* Search for a specified element in the array */
     static int find(int[] nums, int target) {
         for (int i = 0; i < nums.length; i++) {
             if (nums[i] == target)
@@ -73,33 +73,33 @@ public class array {
 
     /* Driver Code */
     public static void main(String[] args) {
-        /* 初始化数组 */
+        /* Initialize an array */
         int[] arr = new int[5];
-        System.out.println("数组 arr = " + Arrays.toString(arr));
+        System.out.println("Array arr = " + Arrays.toString(arr));
         int[] nums = { 1, 3, 2, 5, 4 };
-        System.out.println("数组 nums = " + Arrays.toString(nums));
+        System.out.println("Array nums = " + Arrays.toString(nums));
 
-        /* 随机访问 */
+        /* Random access */
         int randomNum = randomAccess(nums);
-        System.out.println("在 nums 中获取随机元素 " + randomNum);
+        System.out.println("Get a random element from nums = " + randomNum);
 
-        /* 长度扩展 */
+        /* Length extension */
         nums = extend(nums, 3);
-        System.out.println("将数组长度扩展至 8 ，得到 nums = " + Arrays.toString(nums));
+        System.out.println("Extend the array length to 8, resulting in nums = " + Arrays.toString(nums));
 
-        /* 插入元素 */
+        /* Insert element */
         insert(nums, 6, 3);
-        System.out.println("在索引 3 处插入数字 6 ，得到 nums = " + Arrays.toString(nums));
+        System.out.println("Insert the number 6 at index 3, resulting in nums = " + Arrays.toString(nums));
 
-        /* 删除元素 */
+        /* Remove element */
         remove(nums, 2);
-        System.out.println("删除索引 2 处的元素，得到 nums = " + Arrays.toString(nums));
+        System.out.println("Remove the element at index 2, resulting in nums = " + Arrays.toString(nums));
 
-        /* 遍历数组 */
+        /* Traverse array */
         traverse(nums);
 
-        /* 查找元素 */
+        /* Search for elements */
         int index = find(nums, 3);
-        System.out.println("在 nums 中查找元素 3 ，得到索引 = " + index);
+        System.out.println("Find element 3 in nums, index = " + index);
     }
 }

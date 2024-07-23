@@ -9,10 +9,10 @@ package chapter_searching;
 import java.util.*;
 
 public class two_sum {
-    /* 方法一：暴力枚举 */
+    /* Method one: Brute force enumeration */
     static int[] twoSumBruteForce(int[] nums, int target) {
         int size = nums.length;
-        // 两层循环，时间复杂度为 O(n^2)
+        // Two-layer loop, time complexity is O(n^2)
         for (int i = 0; i < size - 1; i++) {
             for (int j = i + 1; j < size; j++) {
                 if (nums[i] + nums[j] == target)
@@ -22,12 +22,12 @@ public class two_sum {
         return new int[0];
     }
 
-    /* 方法二：辅助哈希表 */
+    /* Method two: Auxiliary hash table */
     static int[] twoSumHashTable(int[] nums, int target) {
         int size = nums.length;
-        // 辅助哈希表，空间复杂度为 O(n)
+        // Auxiliary hash table, space complexity is O(n)
         Map<Integer, Integer> dic = new HashMap<>();
-        // 单层循环，时间复杂度为 O(n)
+        // Single-layer loop, time complexity is O(n)
         for (int i = 0; i < size; i++) {
             if (dic.containsKey(target - nums[i])) {
                 return new int[] { dic.get(target - nums[i]), i };
@@ -43,11 +43,11 @@ public class two_sum {
         int target = 13;
 
         // ====== Driver Code ======
-        // 方法一
+        // Method one
         int[] res = twoSumBruteForce(nums, target);
-        System.out.println("方法一 res = " + Arrays.toString(res));
-        // 方法二
+        System.out.println("Method one res = " + Arrays.toString(res));
+        // Method two
         res = twoSumHashTable(nums, target);
-        System.out.println("方法二 res = " + Arrays.toString(res));
+        System.out.println("Method two res = " + Arrays.toString(res));
     }
 }

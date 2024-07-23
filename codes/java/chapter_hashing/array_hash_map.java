@@ -8,7 +8,7 @@ package chapter_hashing;
 
 import java.util.*;
 
-/* 键值对 */
+/* Key-value pair */
 class Pair {
     public int key;
     public String val;
@@ -19,25 +19,25 @@ class Pair {
     }
 }
 
-/* 基于数组实现的哈希表 */
+/* Hash table based on array implementation */
 class ArrayHashMap {
     private List<Pair> buckets;
 
     public ArrayHashMap() {
-        // 初始化数组，包含 100 个桶
+        // Initialize an array, containing 100 buckets
         buckets = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
             buckets.add(null);
         }
     }
 
-    /* 哈希函数 */
+    /* Hash function */
     private int hashFunc(int key) {
         int index = key % 100;
         return index;
     }
 
-    /* 查询操作 */
+    /* Query operation */
     public String get(int key) {
         int index = hashFunc(key);
         Pair pair = buckets.get(index);
@@ -46,21 +46,21 @@ class ArrayHashMap {
         return pair.val;
     }
 
-    /* 添加操作 */
+    /* Add operation */
     public void put(int key, String val) {
         Pair pair = new Pair(key, val);
         int index = hashFunc(key);
         buckets.set(index, pair);
     }
 
-    /* 删除操作 */
+    /* Remove operation */
     public void remove(int key) {
         int index = hashFunc(key);
-        // 置为 null ，代表删除
+        // Set to null, indicating removal
         buckets.set(index, null);
     }
 
-    /* 获取所有键值对 */
+    /* Get all key-value pairs */
     public List<Pair> pairSet() {
         List<Pair> pairSet = new ArrayList<>();
         for (Pair pair : buckets) {
@@ -70,7 +70,7 @@ class ArrayHashMap {
         return pairSet;
     }
 
-    /* 获取所有键 */
+    /* Get all keys */
     public List<Integer> keySet() {
         List<Integer> keySet = new ArrayList<>();
         for (Pair pair : buckets) {
@@ -80,7 +80,7 @@ class ArrayHashMap {
         return keySet;
     }
 
-    /* 获取所有值 */
+    /* Get all values */
     public List<String> valueSet() {
         List<String> valueSet = new ArrayList<>();
         for (Pair pair : buckets) {
@@ -90,7 +90,7 @@ class ArrayHashMap {
         return valueSet;
     }
 
-    /* 打印哈希表 */
+    /* Print hash table */
     public void print() {
         for (Pair kv : pairSet()) {
             System.out.println(kv.key + " -> " + kv.val);
@@ -100,40 +100,40 @@ class ArrayHashMap {
 
 public class array_hash_map {
     public static void main(String[] args) {
-        /* 初始化哈希表 */
+        /* Initialize hash table */
         ArrayHashMap map = new ArrayHashMap();
 
-        /* 添加操作 */
-        // 在哈希表中添加键值对 (key, value)
-        map.put(12836, "小哈");
-        map.put(15937, "小啰");
-        map.put(16750, "小算");
-        map.put(13276, "小法");
-        map.put(10583, "小鸭");
-        System.out.println("\n添加完成后，哈希表为\nKey -> Value");
+        /* Add operation */
+        // Add key-value pair (key, value) to the hash table
+        map.put(12836, "Ha");
+        map.put(15937, "Luo");
+        map.put(16750, "Suan");
+        map.put(13276, "Fa");
+        map.put(10583, "Ya");
+        System.out.println("\nAfter adding, the hash table is\nKey -> Value");
         map.print();
 
-        /* 查询操作 */
-        // 向哈希表中输入键 key ，得到值 value
+        /* Query operation */
+        // Enter key to the hash table, get value
         String name = map.get(15937);
-        System.out.println("\n输入学号 15937 ，查询到姓名 " + name);
+        System.out.println("\nEnter student ID 15937, found name " + name);
 
-        /* 删除操作 */
-        // 在哈希表中删除键值对 (key, value)
+        /* Remove operation */
+        // Remove key-value pair (key, value) from the hash table
         map.remove(10583);
-        System.out.println("\n删除 10583 后，哈希表为\nKey -> Value");
+        System.out.println("\nAfter removing 10583, the hash table is\nKey -> Value");
         map.print();
 
-        /* 遍历哈希表 */
-        System.out.println("\n遍历键值对 Key->Value");
+        /* Traverse hash table */
+        System.out.println("\nTraverse key-value pairs Key->Value");
         for (Pair kv : map.pairSet()) {
             System.out.println(kv.key + " -> " + kv.val);
         }
-        System.out.println("\n单独遍历键 Key");
+        System.out.println("\nIndividually traverse keys Key");
         for (int key : map.keySet()) {
             System.out.println(key);
         }
-        System.out.println("\n单独遍历值 Value");
+        System.out.println("\nIndividually traverse values Value");
         for (String val : map.valueSet()) {
             System.out.println(val);
         }

@@ -7,57 +7,57 @@
 package chapter_searching;
 
 class binary_search_insertion {
-    /* 二分查找插入点（无重复元素） */
+    /* Binary search for insertion point (no duplicate elements) */
     static int binarySearchInsertionSimple(int[] nums, int target) {
-        int i = 0, j = nums.length - 1; // 初始化双闭区间 [0, n-1]
+        int i = 0, j = nums.length - 1; // Initialize double closed interval [0, n-1]
         while (i <= j) {
-            int m = i + (j - i) / 2; // 计算中点索引 m
+            int m = i + (j - i) / 2; // Calculate midpoint index m
             if (nums[m] < target) {
-                i = m + 1; // target 在区间 [m+1, j] 中
+                i = m + 1; // Target is in interval [m+1, j]
             } else if (nums[m] > target) {
-                j = m - 1; // target 在区间 [i, m-1] 中
+                j = m - 1; // Target is in interval [i, m-1]
             } else {
-                return m; // 找到 target ，返回插入点 m
+                return m; // Found target, return insertion point m
             }
         }
-        // 未找到 target ，返回插入点 i
+        // Did not find target, return insertion point i
         return i;
     }
 
-    /* 二分查找插入点（存在重复元素） */
+    /* Binary search for insertion point (with duplicate elements) */
     static int binarySearchInsertion(int[] nums, int target) {
-        int i = 0, j = nums.length - 1; // 初始化双闭区间 [0, n-1]
+        int i = 0, j = nums.length - 1; // Initialize double closed interval [0, n-1]
         while (i <= j) {
-            int m = i + (j - i) / 2; // 计算中点索引 m
+            int m = i + (j - i) / 2; // Calculate midpoint index m
             if (nums[m] < target) {
-                i = m + 1; // target 在区间 [m+1, j] 中
+                i = m + 1; // Target is in interval [m+1, j]
             } else if (nums[m] > target) {
-                j = m - 1; // target 在区间 [i, m-1] 中
+                j = m - 1; // Target is in interval [i, m-1]
             } else {
-                j = m - 1; // 首个小于 target 的元素在区间 [i, m-1] 中
+                j = m - 1; // First element less than target is in interval [i, m-1]
             }
         }
-        // 返回插入点 i
+        // Return insertion point i
         return i;
     }
 
     public static void main(String[] args) {
-        // 无重复元素的数组
+        // Array without duplicate elements
         int[] nums = { 1, 3, 6, 8, 12, 15, 23, 26, 31, 35 };
-        System.out.println("\n数组 nums = " + java.util.Arrays.toString(nums));
-        // 二分查找插入点
+        System.out.println("\nArray nums = " + java.util.Arrays.toString(nums));
+        // Binary search for insertion point
         for (int target : new int[] { 6, 9 }) {
             int index = binarySearchInsertionSimple(nums, target);
-            System.out.println("元素 " + target + " 的插入点的索引为 " + index);
+            System.out.println("The insertion point index for element " + target + " is " + index);
         }
 
-        // 包含重复元素的数组
+        // Array with duplicate elements
         nums = new int[] { 1, 3, 6, 6, 6, 6, 6, 10, 12, 15 };
-        System.out.println("\n数组 nums = " + java.util.Arrays.toString(nums));
-        // 二分查找插入点
+        System.out.println("\nArray nums = " + java.util.Arrays.toString(nums));
+        // Binary search for insertion point
         for (int target : new int[] { 2, 6, 20 }) {
             int index = binarySearchInsertion(nums, target);
-            System.out.println("元素 " + target + " 的插入点的索引为 " + index);
+            System.out.println("The insertion point index for element " + target + " is " + index);
         }
     }
 }

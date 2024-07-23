@@ -9,15 +9,15 @@ package chapter_hashing;
 import java.util.ArrayList;
 import java.util.List;
 
-/* 链式地址哈希表 */
+/* Chained address hash table */
 class HashMapChaining {
-    int size; // 键值对数量
-    int capacity; // 哈希表容量
-    double loadThres; // 触发扩容的负载因子阈值
-    int extendRatio; // 扩容倍数
-    List<List<Pair>> buckets; // 桶数组
+    int size; // Number of key-value pairs
+    int capacity; // Hash table capacity
+    double loadThres; // Load factor threshold for triggering expansion
+    int extendRatio; // Expansion multiplier
+    List<List<Pair>> buckets; // Bucket array
 
-    /* 构造方法 */
+    /* Constructor */
     public HashMapChaining() {
         size = 0;
         capacity = 4;
@@ -29,56 +29,56 @@ class HashMapChaining {
         }
     }
 
-    /* 哈希函数 */
+    /* Hash function */
     int hashFunc(int key) {
         return key % capacity;
     }
 
-    /* 负载因子 */
+    /* Load factor */
     double loadFactor() {
         return (double) size / capacity;
     }
 
-    /* 查询操作 */
+    /* Query operation */
     String get(int key) {
         int index = hashFunc(key);
         List<Pair> bucket = buckets.get(index);
-        // 遍历桶，若找到 key ，则返回对应 val
+        // Traverse the bucket, if the key is found, return the corresponding val
         for (Pair pair : bucket) {
             if (pair.key == key) {
                 return pair.val;
             }
         }
-        // 若未找到 key ，则返回 null
+        // If key is not found, return null
         return null;
     }
 
-    /* 添加操作 */
+    /* Add operation */
     void put(int key, String val) {
-        // 当负载因子超过阈值时，执行扩容
+        // When the load factor exceeds the threshold, perform expansion
         if (loadFactor() > loadThres) {
             extend();
         }
         int index = hashFunc(key);
         List<Pair> bucket = buckets.get(index);
-        // 遍历桶，若遇到指定 key ，则更新对应 val 并返回
+        // Traverse the bucket, if the specified key is encountered, update the corresponding val and return
         for (Pair pair : bucket) {
             if (pair.key == key) {
                 pair.val = val;
                 return;
             }
         }
-        // 若无该 key ，则将键值对添加至尾部
+        // If the key is not found, add the key-value pair to the end
         Pair pair = new Pair(key, val);
         bucket.add(pair);
         size++;
     }
 
-    /* 删除操作 */
+    /* Remove operation */
     void remove(int key) {
         int index = hashFunc(key);
         List<Pair> bucket = buckets.get(index);
-        // 遍历桶，从中删除键值对
+        // Traverse the bucket, remove the key-value pair from it
         for (Pair pair : bucket) {
             if (pair.key == key) {
                 bucket.remove(pair);
@@ -88,18 +88,18 @@ class HashMapChaining {
         }
     }
 
-    /* 扩容哈希表 */
+    /* Extend hash table */
     void extend() {
-        // 暂存原哈希表
+        // Temporarily store the original hash table
         List<List<Pair>> bucketsTmp = buckets;
-        // 初始化扩容后的新哈希表
+        // Initialize the extended new hash table
         capacity *= extendRatio;
         buckets = new ArrayList<>(capacity);
         for (int i = 0; i < capacity; i++) {
             buckets.add(new ArrayList<>());
         }
         size = 0;
-        // 将键值对从原哈希表搬运至新哈希表
+        // Move key-value pairs from the original hash table to the new hash table
         for (List<Pair> bucket : bucketsTmp) {
             for (Pair pair : bucket) {
                 put(pair.key, pair.val);
@@ -107,7 +107,7 @@ class HashMapChaining {
         }
     }
 
-    /* 打印哈希表 */
+    /* Print hash table */
     void print() {
         for (List<Pair> bucket : buckets) {
             List<String> res = new ArrayList<>();
@@ -121,28 +121,28 @@ class HashMapChaining {
 
 public class hash_map_chaining {
     public static void main(String[] args) {
-        /* 初始化哈希表 */
+        /* Initialize hash table */
         HashMapChaining map = new HashMapChaining();
 
-        /* 添加操作 */
-        // 在哈希表中添加键值对 (key, value)
-        map.put(12836, "小哈");
-        map.put(15937, "小啰");
-        map.put(16750, "小算");
-        map.put(13276, "小法");
-        map.put(10583, "小鸭");
-        System.out.println("\n添加完成后，哈希表为\nKey -> Value");
+        /* Add operation */
+        // Add key-value pair (key, value) to the hash table
+        map.put(12836, "Ha");
+        map.put(15937, "Luo");
+        map.put(16750, "Suan");
+        map.put(13276, "Fa");
+        map.put(10583, "Ya");
+        System.out.println("\nAfter adding, the hash table is\nKey -> Value");
         map.print();
 
-        /* 查询操作 */
-        // 向哈希表中输入键 key ，得到值 value
+        /* Query operation */
+        // Enter key to the hash table, get value
         String name = map.get(13276);
-        System.out.println("\n输入学号 13276 ，查询到姓名 " + name);
+        System.out.println("\nEnter student ID 13276, found name " + name);
 
-        /* 删除操作 */
-        // 在哈希表中删除键值对 (key, value)
+        /* Remove operation */
+        // Remove key-value pair (key, value) from the hash table
         map.remove(12836);
-        System.out.println("\n删除 12836 后，哈希表为\nKey -> Value");
+        System.out.println("\nAfter removing 12836, the hash table is\nKey -> Value");
         map.print();
     }
 }

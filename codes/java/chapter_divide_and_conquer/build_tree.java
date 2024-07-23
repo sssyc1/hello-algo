@@ -10,26 +10,26 @@ import utils.*;
 import java.util.*;
 
 public class build_tree {
-    /* 构建二叉树：分治 */
+    /* Build binary tree: Divide and conquer */
     static TreeNode dfs(int[] preorder, Map<Integer, Integer> inorderMap, int i, int l, int r) {
-        // 子树区间为空时终止
+        // Terminate when subtree interval is empty
         if (r - l < 0)
             return null;
-        // 初始化根节点
+        // Initialize root node
         TreeNode root = new TreeNode(preorder[i]);
-        // 查询 m ，从而划分左右子树
+        // Query m to divide left and right subtrees
         int m = inorderMap.get(preorder[i]);
-        // 子问题：构建左子树
+        // Subproblem: build left subtree
         root.left = dfs(preorder, inorderMap, i + 1, l, m - 1);
-        // 子问题：构建右子树
+        // Subproblem: build right subtree
         root.right = dfs(preorder, inorderMap, i + 1 + m - l, m + 1, r);
-        // 返回根节点
+        // Return root node
         return root;
     }
 
-    /* 构建二叉树 */
+    /* Build binary tree */
     static TreeNode buildTree(int[] preorder, int[] inorder) {
-        // 初始化哈希表，存储 inorder 元素到索引的映射
+        // Initialize hash table, storing in-order elements to indices mapping
         Map<Integer, Integer> inorderMap = new HashMap<>();
         for (int i = 0; i < inorder.length; i++) {
             inorderMap.put(inorder[i], i);
@@ -41,11 +41,11 @@ public class build_tree {
     public static void main(String[] args) {
         int[] preorder = { 3, 9, 2, 1, 7 };
         int[] inorder = { 9, 3, 1, 2, 7 };
-        System.out.println("前序遍历 = " + Arrays.toString(preorder));
-        System.out.println("中序遍历 = " + Arrays.toString(inorder));
+        System.out.println("Pre-order traversal = " + Arrays.toString(preorder));
+        System.out.println("In-order traversal = " + Arrays.toString(inorder));
 
         TreeNode root = buildTree(preorder, inorder);
-        System.out.println("构建的二叉树为：");
+        System.out.println("The built binary tree is:");
         PrintUtil.printTree(root);
     }
 }

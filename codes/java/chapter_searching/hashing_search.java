@@ -10,42 +10,42 @@ import utils.*;
 import java.util.*;
 
 public class hashing_search {
-    /* 哈希查找（数组） */
+    /* Hash search (array) */
     static int hashingSearchArray(Map<Integer, Integer> map, int target) {
-        // 哈希表的 key: 目标元素，value: 索引
-        // 若哈希表中无此 key ，返回 -1
+        // Hash table's key: target element, value: index
+        // If the hash table does not contain this key, return -1
         return map.getOrDefault(target, -1);
     }
 
-    /* 哈希查找（链表） */
+    /* Hash search (linked list) */
     static ListNode hashingSearchLinkedList(Map<Integer, ListNode> map, int target) {
-        // 哈希表的 key: 目标节点值，value: 节点对象
-        // 若哈希表中无此 key ，返回 null
+        // Hash table key: target node value, value: node object
+        // If the key is not in the hash table, return null
         return map.getOrDefault(target, null);
     }
 
     public static void main(String[] args) {
         int target = 3;
 
-        /* 哈希查找（数组） */
+        /* Hash search (array) */
         int[] nums = { 1, 5, 3, 2, 4, 7, 5, 9, 10, 8 };
-        // 初始化哈希表
+        // Initialize hash table
         Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; i++) {
-            map.put(nums[i], i); // key: 元素，value: 索引
+            map.put(nums[i], i); // key: element, value: index
         }
         int index = hashingSearchArray(map, target);
-        System.out.println("目标元素 3 的索引 = " + index);
+        System.out.println("The index of target element 3 is " + index);
 
-        /* 哈希查找（链表） */
+        /* Hash search (linked list) */
         ListNode head = ListNode.arrToLinkedList(nums);
-        // 初始化哈希表
+        // Initialize hash table
         Map<Integer, ListNode> map1 = new HashMap<>();
         while (head != null) {
-            map1.put(head.val, head); // key: 节点值，value: 节点
+            map1.put(head.val, head); // key: node value, value: node
             head = head.next;
         }
         ListNode node = hashingSearchLinkedList(map1, target);
-        System.out.println("目标节点值 3 的对应节点对象为 " + node);
+        System.out.println("The corresponding node object for target node value 3 is " + node);
     }
 }

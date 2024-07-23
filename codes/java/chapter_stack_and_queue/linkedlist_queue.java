@@ -8,9 +8,9 @@ package chapter_stack_and_queue;
 
 import java.util.*;
 
-/* 基于链表实现的队列 */
+/* Queue class based on linked list */
 class LinkedListQueue {
-    private ListNode front, rear; // 头节点 front ，尾节点 rear
+    private ListNode front, rear; // Front node front, back node rear
     private int queSize = 0;
 
     public LinkedListQueue() {
@@ -18,25 +18,25 @@ class LinkedListQueue {
         rear = null;
     }
 
-    /* 获取队列的长度 */
+    /* Get the length of the queue */
     public int size() {
         return queSize;
     }
 
-    /* 判断队列是否为空 */
+    /* Determine if the queue is empty */
     public boolean isEmpty() {
         return size() == 0;
     }
 
-    /* 入队 */
+    /* Enqueue */
     public void push(int num) {
-        // 在尾节点后添加 num
+        // Add num behind the tail node
         ListNode node = new ListNode(num);
-        // 如果队列为空，则令头、尾节点都指向该节点
+        // If the queue is empty, make the head and tail nodes both point to that node
         if (front == null) {
             front = node;
             rear = node;
-        // 如果队列不为空，则将该节点添加到尾节点后
+        // If the queue is not empty, add that node behind the tail node
         } else {
             rear.next = node;
             rear = node;
@@ -44,23 +44,23 @@ class LinkedListQueue {
         queSize++;
     }
 
-    /* 出队 */
+    /* Dequeue */
     public int pop() {
         int num = peek();
-        // 删除头节点
+        // Remove head node
         front = front.next;
         queSize--;
         return num;
     }
 
-    /* 访问队首元素 */
+    /* Access front element */
     public int peek() {
         if (isEmpty())
             throw new IndexOutOfBoundsException();
         return front.val;
     }
 
-    /* 将链表转化为 Array 并返回 */
+    /* Convert the linked list to Array and return */
     public int[] toArray() {
         ListNode node = front;
         int[] res = new int[size()];
@@ -74,31 +74,31 @@ class LinkedListQueue {
 
 public class linkedlist_queue {
     public static void main(String[] args) {
-        /* 初始化队列 */
+        /* Initialize queue */
         LinkedListQueue queue = new LinkedListQueue();
 
-        /* 元素入队 */
+        /* Element enqueue */
         queue.push(1);
         queue.push(3);
         queue.push(2);
         queue.push(5);
         queue.push(4);
-        System.out.println("队列 queue = " + Arrays.toString(queue.toArray()));
+        System.out.println("Queue queue = " + Arrays.toString(queue.toArray()));
 
-        /* 访问队首元素 */
+        /* Access front element */
         int peek = queue.peek();
-        System.out.println("队首元素 peek = " + peek);
+        System.out.println("Front element peek = " + peek);
 
-        /* 元素出队 */
+        /* Element dequeue */
         int pop = queue.pop();
-        System.out.println("出队元素 pop = " + pop + "，出队后 queue = " + Arrays.toString(queue.toArray()));
+        System.out.println("Dequeued element = " + pop + ", after dequeuing" + Arrays.toString(queue.toArray()));
 
-        /* 获取队列的长度 */
+        /* Get the length of the queue */
         int size = queue.size();
-        System.out.println("队列长度 size = " + size);
+        System.out.println("Length of the queue size = " + size);
 
-        /* 判断队列是否为空 */
+        /* Determine if the queue is empty */
         boolean isEmpty = queue.isEmpty();
-        System.out.println("队列是否为空 = " + isEmpty);
+        System.out.println("Is the queue empty = " + isEmpty);
     }
 }

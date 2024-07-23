@@ -7,7 +7,7 @@
 package chapter_hashing;
 
 public class simple_hash {
-    /* 加法哈希 */
+    /* Additive hash */
     static int addHash(String key) {
         long hash = 0;
         final int MODULUS = 1000000007;
@@ -17,7 +17,7 @@ public class simple_hash {
         return (int) hash;
     }
 
-    /* 乘法哈希 */
+    /* Multiplicative hash */
     static int mulHash(String key) {
         long hash = 0;
         final int MODULUS = 1000000007;
@@ -27,7 +27,7 @@ public class simple_hash {
         return (int) hash;
     }
 
-    /* 异或哈希 */
+    /* XOR hash */
     static int xorHash(String key) {
         int hash = 0;
         final int MODULUS = 1000000007;
@@ -37,7 +37,7 @@ public class simple_hash {
         return hash & MODULUS;
     }
 
-    /* 旋转哈希 */
+    /* Rotational hash */
     static int rotHash(String key) {
         long hash = 0;
         final int MODULUS = 1000000007;
@@ -48,18 +48,18 @@ public class simple_hash {
     }
 
     public static void main(String[] args) {
-        String key = "Hello 算法";
+        String key = "Hello algorithm";
 
         int hash = addHash(key);
-        System.out.println("加法哈希值为 " + hash);
+        System.out.println("Additive hash value is " + hash);
 
         hash = mulHash(key);
-        System.out.println("乘法哈希值为 " + hash);
+        System.out.println("Multiplicative hash value is " + hash);
 
         hash = xorHash(key);
-        System.out.println("异或哈希值为 " + hash);
+        System.out.println("XOR hash value is " + hash);
 
         hash = rotHash(key);
-        System.out.println("旋转哈希值为 " + hash);
+        System.out.println("Rotational hash value is " + hash);
     }
 }

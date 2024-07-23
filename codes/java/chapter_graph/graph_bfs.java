@@ -10,46 +10,46 @@ import java.util.*;
 import utils.*;
 
 public class graph_bfs {
-    /* 广度优先遍历 */
-    // 使用邻接表来表示图，以便获取指定顶点的所有邻接顶点
+    /* Breadth-first traversal */
+    // Use adjacency list to represent the graph, to obtain all adjacent vertices of a specified vertex
     static List<Vertex> graphBFS(GraphAdjList graph, Vertex startVet) {
-        // 顶点遍历序列
+        // Vertex traversal sequence
         List<Vertex> res = new ArrayList<>();
-        // 哈希集合，用于记录已被访问过的顶点
+        // Hash set, used to record visited vertices
         Set<Vertex> visited = new HashSet<>();
         visited.add(startVet);
-        // 队列用于实现 BFS
+        // Queue used to implement BFS
         Queue<Vertex> que = new LinkedList<>();
         que.offer(startVet);
-        // 以顶点 vet 为起点，循环直至访问完所有顶点
+        // Starting from vertex vet, loop until all vertices are visited
         while (!que.isEmpty()) {
-            Vertex vet = que.poll(); // 队首顶点出队
-            res.add(vet);            // 记录访问顶点
-            // 遍历该顶点的所有邻接顶点
+            Vertex vet = que.poll(); // Dequeue the vertex at the head of the queue
+            res.add(vet);            // Record visited vertex
+            // Traverse all adjacent vertices of that vertex
             for (Vertex adjVet : graph.adjList.get(vet)) {
                 if (visited.contains(adjVet))
-                    continue;        // 跳过已被访问的顶点
-                que.offer(adjVet);   // 只入队未访问的顶点
-                visited.add(adjVet); // 标记该顶点已被访问
+                    continue;        // Skip already visited vertices
+                que.offer(adjVet);   // Only enqueue unvisited vertices
+                visited.add(adjVet); // Mark the vertex as visited
             }
         }
-        // 返回顶点遍历序列
+        // Return the vertex traversal sequence
         return res;
     }
 
     public static void main(String[] args) {
-        /* 初始化无向图 */
+        /* Initialize undirected graph */
         Vertex[] v = Vertex.valsToVets(new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 });
         Vertex[][] edges = { { v[0], v[1] }, { v[0], v[3] }, { v[1], v[2] }, { v[1], v[4] },
                              { v[2], v[5] }, { v[3], v[4] }, { v[3], v[6] }, { v[4], v[5] },
                              { v[4], v[7] }, { v[5], v[8] }, { v[6], v[7] }, { v[7], v[8] } };
         GraphAdjList graph = new GraphAdjList(edges);
-        System.out.println("\n初始化后，图为");
+        System.out.println("\nAfter initialization, the graph is");
         graph.print();
 
-        /* 广度优先遍历 */
+        /* Breadth-first traversal */
         List<Vertex> res = graphBFS(graph, v[0]);
-        System.out.println("\n广度优先遍历（BFS）顶点序列为");
+        System.out.println("\nBreadth-first traversal (BFS) vertex sequence is");
         System.out.println(Vertex.vetsToVals(res));
     }
 }

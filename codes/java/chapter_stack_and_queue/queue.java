@@ -10,31 +10,31 @@ import java.util.*;
 
 public class queue {
     public static void main(String[] args) {
-        /* 初始化队列 */
+        /* Initialize queue */
         Queue<Integer> queue = new LinkedList<>();
 
-        /* 元素入队 */
+        /* Element enqueue */
         queue.offer(1);
         queue.offer(3);
         queue.offer(2);
         queue.offer(5);
         queue.offer(4);
-        System.out.println("队列 queue = " + queue);
+        System.out.println("Queue queue = " + queue);
 
-        /* 访问队首元素 */
+        /* Access front element */
         int peek = queue.peek();
-        System.out.println("队首元素 peek = " + peek);
+        System.out.println("Front element peek = " + peek);
 
-        /* 元素出队 */
+        /* Element dequeue */
         int pop = queue.poll();
-        System.out.println("出队元素 pop = " + pop + "，出队后 queue = " + queue);
+        System.out.println("Dequeued element = " + pop + ", after dequeuing" + queue);
 
-        /* 获取队列的长度 */
+        /* Get the length of the queue */
         int size = queue.size();
-        System.out.println("队列长度 size = " + size);
+        System.out.println("Length of the queue size = " + size);
 
-        /* 判断队列是否为空 */
+        /* Determine if the queue is empty */
         boolean isEmpty = queue.isEmpty();
-        System.out.println("队列是否为空 = " + isEmpty);
+        System.out.println("Is the queue empty = " + isEmpty);
     }
 }

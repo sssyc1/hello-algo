@@ -7,18 +7,18 @@
 package chapter_greedy;
 
 public class max_capacity {
-    /* 最大容量：贪心 */
+    /* Maximum capacity: Greedy */
     static int maxCapacity(int[] ht) {
-        // 初始化 i, j，使其分列数组两端
+        // Initialize i, j, making them split the array at both ends
         int i = 0, j = ht.length - 1;
-        // 初始最大容量为 0
+        // Initial maximum capacity is 0
         int res = 0;
-        // 循环贪心选择，直至两板相遇
+        // Loop for greedy selection until the two boards meet
         while (i < j) {
-            // 更新最大容量
+            // Update maximum capacity
             int cap = Math.min(ht[i], ht[j]) * (j - i);
             res = Math.max(res, cap);
-            // 向内移动短板
+            // Move the shorter board inward
             if (ht[i] < ht[j]) {
                 i++;
             } else {
@@ -31,8 +31,8 @@ public class max_capacity {
     public static void main(String[] args) {
         int[] ht = { 3, 8, 5, 2, 7, 7, 3, 4 };
 
-        // 贪心算法
+        // Greedy algorithm
         int res = maxCapacity(ht);
-        System.out.println("最大容量为 " + res);
+        System.out.println("The maximum capacity is " + res);
     }
 }

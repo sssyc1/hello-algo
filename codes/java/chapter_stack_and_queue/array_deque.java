@@ -8,103 +8,103 @@ package chapter_stack_and_queue;
 
 import java.util.*;
 
-/* 基于环形数组实现的双向队列 */
+/* Double-ended queue class based on circular array */
 class ArrayDeque {
-    private int[] nums; // 用于存储双向队列元素的数组
-    private int front; // 队首指针，指向队首元素
-    private int queSize; // 双向队列长度
+    private int[] nums; // Array used to store elements of the double-ended queue
+    private int front; // Front pointer, pointing to the front element
+    private int queSize; // Length of the double-ended queue
 
-    /* 构造方法 */
+    /* Constructor */
     public ArrayDeque(int capacity) {
         this.nums = new int[capacity];
         front = queSize = 0;
     }
 
-    /* 获取双向队列的容量 */
+    /* Get the capacity of the double-ended queue */
     public int capacity() {
         return nums.length;
     }
 
-    /* 获取双向队列的长度 */
+    /* Get the length of the double-ended queue */
     public int size() {
         return queSize;
     }
 
-    /* 判断双向队列是否为空 */
+    /* Determine if the double-ended queue is empty */
     public boolean isEmpty() {
         return queSize == 0;
     }
 
-    /* 计算环形数组索引 */
+    /* Calculate circular array index */
     private int index(int i) {
-        // 通过取余操作实现数组首尾相连
-        // 当 i 越过数组尾部后，回到头部
-        // 当 i 越过数组头部后，回到尾部
+        // Implement circular array by modulo operation
+        // When i exceeds the tail of the array, return to the head
+        // When i exceeds the head of the array, return to the tail
         return (i + capacity()) % capacity();
     }
 
-    /* 队首入队 */
+    /* Front enqueue */
     public void pushFirst(int num) {
         if (queSize == capacity()) {
-            System.out.println("双向队列已满");
+            System.out.println("Double-ended queue is full");
             return;
         }
-        // 队首指针向左移动一位
-        // 通过取余操作实现 front 越过数组头部后回到尾部
+        // Move the front pointer one position to the left
+        // Implement front crossing the head of the array to return to the tail by modulo operation
         front = index(front - 1);
-        // 将 num 添加至队首
+        // Add num to the front
         nums[front] = num;
         queSize++;
     }
 
-    /* 队尾入队 */
+    /* Rear enqueue */
     public void pushLast(int num) {
         if (queSize == capacity()) {
-            System.out.println("双向队列已满");
+            System.out.println("Double-ended queue is full");
             return;
         }
-        // 计算队尾指针，指向队尾索引 + 1
+        // Calculate rear pointer, pointing to rear index + 1
         int rear = index(front + queSize);
-        // 将 num 添加至队尾
+        // Add num to the rear
         nums[rear] = num;
         queSize++;
     }
 
-    /* 队首出队 */
+    /* Front dequeue */
     public int popFirst() {
         int num = peekFirst();
-        // 队首指针向后移动一位
+        // Move front pointer one position backward
         front = index(front + 1);
         queSize--;
         return num;
     }
 
-    /* 队尾出队 */
+    /* Rear dequeue */
     public int popLast() {
         int num = peekLast();
         queSize--;
         return num;
     }
 
-    /* 访问队首元素 */
+    /* Access front element */
     public int peekFirst() {
         if (isEmpty())
             throw new IndexOutOfBoundsException();
         return nums[front];
     }
 
-    /* 访问队尾元素 */
+    /* Access rear element */
     public int peekLast() {
         if (isEmpty())
             throw new IndexOutOfBoundsException();
-        // 计算尾元素索引
+        // Calculate rear element index
         int last = index(front + queSize - 1);
         return nums[last];
     }
 
-    /* 返回数组用于打印 */
+    /* Return array for printing */
     public int[] toArray() {
-        // 仅转换有效长度范围内的列表元素
+        // Only convert elements within valid length range
         int[] res = new int[queSize];
         for (int i = 0, j = front; i < queSize; i++, j++) {
             res[i] = nums[index(j)];
@@ -115,37 +115,37 @@ class ArrayDeque {
 
 public class array_deque {
     public static void main(String[] args) {
-        /* 初始化双向队列 */
+        /* Initialize double-ended queue */
         ArrayDeque deque = new ArrayDeque(10);
         deque.pushLast(3);
         deque.pushLast(2);
         deque.pushLast(5);
-        System.out.println("双向队列 deque = " + Arrays.toString(deque.toArray()));
+        System.out.println("Double-ended queue deque = " + Arrays.toString(deque.toArray()));
 
-        /* 访问元素 */
+        /* Access element */
         int peekFirst = deque.peekFirst();
-        System.out.println("队首元素 peekFirst = " + peekFirst);
+        System.out.println("Front element peekFirst = " + peekFirst);
         int peekLast = deque.peekLast();
-        System.out.println("队尾元素 peekLast = " + peekLast);
+        System.out.println("Back element peekLast = " + peekLast);
 
-        /* 元素入队 */
+        /* Element enqueue */
         deque.pushLast(4);
-        System.out.println("元素 4 队尾入队后 deque = " + Arrays.toString(deque.toArray()));
+        System.out.println("Element 4 enqueued at the tail, deque = " + Arrays.toString(deque.toArray()));
         deque.pushFirst(1);
-        System.out.println("元素 1 队首入队后 deque = " + Arrays.toString(deque.toArray()));
+        System.out.println("Element 1 enqueued at the head, deque = " + Arrays.toString(deque.toArray()));
 
-        /* 元素出队 */
+        /* Element dequeue */
         int popLast = deque.popLast();
-        System.out.println("队尾出队元素 = " + popLast + "，队尾出队后 deque = " + Arrays.toString(deque.toArray()));
+        System.out.println("Deque tail element = " + popLast + ", after dequeuing from the tail" + Arrays.toString(deque.toArray()));
         int popFirst = deque.popFirst();
-        System.out.println("队首出队元素 = " + popFirst + "，队首出队后 deque = " + Arrays.toString(deque.toArray()));
+        System.out.println("Deque front element = " + popFirst + ", after dequeuing from the front" + Arrays.toString(deque.toArray()));
 
-        /* 获取双向队列的长度 */
+        /* Get the length of the double-ended queue */
         int size = deque.size();
-        System.out.println("双向队列长度 size = " + size);
+        System.out.println("Length of the double-ended queue size = " + size);
 
-        /* 判断双向队列是否为空 */
+        /* Determine if the double-ended queue is empty */
         boolean isEmpty = deque.isEmpty();
-        System.out.println("双向队列是否为空 = " + isEmpty);
+        System.out.println("Is the double-ended queue empty = " + isEmpty);
     }
 }

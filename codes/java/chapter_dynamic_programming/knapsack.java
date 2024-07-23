@@ -10,58 +10,58 @@ import java.util.Arrays;
 
 public class knapsack {
 
-    /* 0-1 背包：暴力搜索 */
+    /* 0-1 Knapsack: Brute force search */
     static int knapsackDFS(int[] wgt, int[] val, int i, int c) {
-        // 若已选完所有物品或背包无剩余容量，则返回价值 0
+        // If all items have been chosen or the knapsack has no remaining capacity, return value 0
         if (i == 0 || c == 0) {
             return 0;
         }
-        // 若超过背包容量，则只能选择不放入背包
+        // If exceeding the knapsack capacity, can only choose not to put it in the knapsack
         if (wgt[i - 1] > c) {
             return knapsackDFS(wgt, val, i - 1, c);
         }
-        // 计算不放入和放入物品 i 的最大价值
+        // Calculate the maximum value of not putting in and putting in item i
         int no = knapsackDFS(wgt, val, i - 1, c);
         int yes = knapsackDFS(wgt, val, i - 1, c - wgt[i - 1]) + val[i - 1];
-        // 返回两种方案中价值更大的那一个
+        // Return the greater value of the two options
         return Math.max(no, yes);
     }
 
-    /* 0-1 背包：记忆化搜索 */
+    /* 0-1 Knapsack: Memoized search */
     static int knapsackDFSMem(int[] wgt, int[] val, int[][] mem, int i, int c) {
-        // 若已选完所有物品或背包无剩余容量，则返回价值 0
+        // If all items have been chosen or the knapsack has no remaining capacity, return value 0
         if (i == 0 || c == 0) {
             return 0;
         }
-        // 若已有记录，则直接返回
+        // If there is a record, return it
         if (mem[i][c] != -1) {
             return mem[i][c];
         }
-        // 若超过背包容量，则只能选择不放入背包
+        // If exceeding the knapsack capacity, can only choose not to put it in the knapsack
         if (wgt[i - 1] > c) {
             return knapsackDFSMem(wgt, val, mem, i - 1, c);
         }
-        // 计算不放入和放入物品 i 的最大价值
+        // Calculate the maximum value of not putting in and putting in item i
         int no = knapsackDFSMem(wgt, val, mem, i - 1, c);
         int yes = knapsackDFSMem(wgt, val, mem, i - 1, c - wgt[i - 1]) + val[i - 1];
-        // 记录并返回两种方案中价值更大的那一个
+        // Record and return the greater value of the two options
         mem[i][c] = Math.max(no, yes);
         return mem[i][c];
     }
 
-    /* 0-1 背包：动态规划 */
+    /* 0-1 Knapsack: Dynamic programming */
     static int knapsackDP(int[] wgt, int[] val, int cap) {
         int n = wgt.length;
-        // 初始化 dp 表
+        // Initialize dp table
         int[][] dp = new int[n + 1][cap + 1];
-        // 状态转移
+        // State transition
         for (int i = 1; i <= n; i++) {
             for (int c = 1; c <= cap; c++) {
                 if (wgt[i - 1] > c) {
-                    // 若超过背包容量，则不选物品 i
+                    // If exceeding the knapsack capacity, do not choose item i
                     dp[i][c] = dp[i - 1][c];
                 } else {
-                    // 不选和选物品 i 这两种方案的较大值
+                    // The greater value between not choosing and choosing item i
                     dp[i][c] = Math.max(dp[i - 1][c], dp[i - 1][c - wgt[i - 1]] + val[i - 1]);
                 }
             }
@@ -69,17 +69,17 @@ public class knapsack {
         return dp[n][cap];
     }
 
-    /* 0-1 背包：空间优化后的动态规划 */
+    /* 0-1 Knapsack: Space-optimized dynamic programming */
     static int knapsackDPComp(int[] wgt, int[] val, int cap) {
         int n = wgt.length;
-        // 初始化 dp 表
+        // Initialize dp table
         int[] dp = new int[cap + 1];
-        // 状态转移
+        // State transition
         for (int i = 1; i <= n; i++) {
-            // 倒序遍历
+            // Traverse in reverse order
             for (int c = cap; c >= 1; c--) {
                 if (wgt[i - 1] <= c) {
-                    // 不选和选物品 i 这两种方案的较大值
+                    // The greater value between not choosing and choosing item i
                     dp[c] = Math.max(dp[c], dp[c - wgt[i - 1]] + val[i - 1]);
                 }
             }
@@ -93,24 +93,24 @@ public class knapsack {
         int cap = 50;
         int n = wgt.length;
 
-        // 暴力搜索
+        // Brute force search
         int res = knapsackDFS(wgt, val, n, cap);
-        System.out.println("不超过背包容量的最大物品价值为 " + res);
+        System.out.println("The maximum value within the bag capacity is " + res);
 
-        // 记忆化搜索
+        // Memoized search
         int[][] mem = new int[n + 1][cap + 1];
         for (int[] row : mem) {
             Arrays.fill(row, -1);
         }
         res = knapsackDFSMem(wgt, val, mem, n, cap);
-        System.out.println("不超过背包容量的最大物品价值为 " + res);
+        System.out.println("The maximum value within the bag capacity is " + res);
 
-        // 动态规划
+        // Dynamic programming
         res = knapsackDP(wgt, val, cap);
-        System.out.println("不超过背包容量的最大物品价值为 " + res);
+        System.out.println("The maximum value within the bag capacity is " + res);
 
-        // 空间优化后的动态规划
+        // Space-optimized dynamic programming
         res = knapsackDPComp(wgt, val, cap);
-        System.out.println("不超过背包容量的最大物品价值为 " + res);
+        System.out.println("The maximum value within the bag capacity is " + res);
     }
 }

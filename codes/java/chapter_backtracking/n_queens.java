@@ -9,10 +9,10 @@ package chapter_backtracking;
 import java.util.*;
 
 public class n_queens {
-    /* 回溯算法：n 皇后 */
+    /* Backtracking algorithm: n queens */
     public static void backtrack(int row, int n, List<List<String>> state, List<List<List<String>>> res,
             boolean[] cols, boolean[] diags1, boolean[] diags2) {
-        // 当放置完所有行时，记录解
+        // When all rows are placed, record the solution
         if (row == n) {
             List<List<String>> copyState = new ArrayList<>();
             for (List<String> sRow : state) {
@@ -21,28 +21,28 @@ public class n_queens {
             res.add(copyState);
             return;
         }
-        // 遍历所有列
+        // Traverse all columns
         for (int col = 0; col < n; col++) {
-            // 计算该格子对应的主对角线和次对角线
+            // Calculate the main and minor diagonals corresponding to the cell
             int diag1 = row - col + n - 1;
             int diag2 = row + col;
-            // 剪枝：不允许该格子所在列、主对角线、次对角线上存在皇后
+            // Pruning: do not allow queens on the column, main diagonal, or minor diagonal of the cell
             if (!cols[col] && !diags1[diag1] && !diags2[diag2]) {
-                // 尝试：将皇后放置在该格子
+                // Attempt: place the queen in the cell
                 state.get(row).set(col, "Q");
                 cols[col] = diags1[diag1] = diags2[diag2] = true;
-                // 放置下一行
+                // Place the next row
                 backtrack(row + 1, n, state, res, cols, diags1, diags2);
-                // 回退：将该格子恢复为空位
+                // Retract: restore the cell to an empty spot
                 state.get(row).set(col, "#");
                 cols[col] = diags1[diag1] = diags2[diag2] = false;
             }
         }
     }
 
-    /* 求解 n 皇后 */
+    /* Solve n queens */
     public static List<List<List<String>>> nQueens(int n) {
-        // 初始化 n*n 大小的棋盘，其中 'Q' 代表皇后，'#' 代表空位
+        // Initialize an n*n size chessboard, where 'Q' represents the queen and '#' represents an empty spot
         List<List<String>> state = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             List<String> row = new ArrayList<>();
@@ -51,9 +51,9 @@ public class n_queens {
             }
             state.add(row);
         }
-        boolean[] cols = new boolean[n]; // 记录列是否有皇后
-        boolean[] diags1 = new boolean[2 * n - 1]; // 记录主对角线上是否有皇后
-        boolean[] diags2 = new boolean[2 * n - 1]; // 记录次对角线上是否有皇后
+        boolean[] cols = new boolean[n]; // Record columns with queens
+        boolean[] diags1 = new boolean[2 * n - 1]; // Record main diagonals with queens
+        boolean[] diags2 = new boolean[2 * n - 1]; // Record minor diagonals with queens
         List<List<List<String>>> res = new ArrayList<>();
 
         backtrack(0, n, state, res, cols, diags1, diags2);
@@ -65,8 +65,8 @@ public class n_queens {
         int n = 4;
         List<List<List<String>>> res = nQueens(n);
 
-        System.out.println("输入棋盘长宽为 " + n);
-        System.out.println("皇后放置方案共有 " + res.size() + " 种");
+        System.out.println("Input the dimensions of the chessboard as " + n);
+        System.out.println("Total number of queen placement solutions = " + res.size());
         for (List<List<String>> state : res) {
             System.out.println("--------------------");
             for (List<String> row : state) {

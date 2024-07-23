@@ -9,23 +9,23 @@ package chapter_sorting;
 import java.util.*;
 
 public class insertion_sort {
-    /* 插入排序 */
+    /* Insertion sort */
     static void insertionSort(int[] nums) {
-        // 外循环：已排序区间为 [0, i-1]
+        // Outer loop: sorted range is [0, i-1]
         for (int i = 1; i < nums.length; i++) {
             int base = nums[i], j = i - 1;
-            // 内循环：将 base 插入到已排序区间 [0, i-1] 中的正确位置
+            // Inner loop: insert base into the correct position within the sorted range [0, i-1]
             while (j >= 0 && nums[j] > base) {
-                nums[j + 1] = nums[j]; // 将 nums[j] 向右移动一位
+                nums[j + 1] = nums[j]; // Move nums[j] to the right by one position
                 j--;
             }
-            nums[j + 1] = base;        // 将 base 赋值到正确位置
+            nums[j + 1] = base;        // Assign base to the correct position
         }
     }
 
     public static void main(String[] args) {
         int[] nums = { 4, 1, 3, 1, 5, 2 };
         insertionSort(nums);
-        System.out.println("插入排序完成后 nums = " + Arrays.toString(nums));
+        System.out.println("After insertion sort, nums = " + Arrays.toString(nums));
     }
 }

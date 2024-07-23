@@ -9,24 +9,24 @@ package chapter_dynamic_programming;
 import java.util.Arrays;
 
 public class coin_change {
-    /* 零钱兑换：动态规划 */
+    /* Coin change: Dynamic programming */
     static int coinChangeDP(int[] coins, int amt) {
         int n = coins.length;
         int MAX = amt + 1;
-        // 初始化 dp 表
+        // Initialize dp table
         int[][] dp = new int[n + 1][amt + 1];
-        // 状态转移：首行首列
+        // State transition: first row and first column
         for (int a = 1; a <= amt; a++) {
             dp[0][a] = MAX;
         }
-        // 状态转移：其余行和列
+        // State transition: the rest of the rows and columns
         for (int i = 1; i <= n; i++) {
             for (int a = 1; a <= amt; a++) {
                 if (coins[i - 1] > a) {
-                    // 若超过目标金额，则不选硬币 i
+                    // If exceeding the target amount, do not choose coin i
                     dp[i][a] = dp[i - 1][a];
                 } else {
-                    // 不选和选硬币 i 这两种方案的较小值
+                    // The smaller value between not choosing and choosing coin i
                     dp[i][a] = Math.min(dp[i - 1][a], dp[i][a - coins[i - 1]] + 1);
                 }
             }
@@ -34,22 +34,22 @@ public class coin_change {
         return dp[n][amt] != MAX ? dp[n][amt] : -1;
     }
 
-    /* 零钱兑换：空间优化后的动态规划 */
+    /* Coin change: Space-optimized dynamic programming */
     static int coinChangeDPComp(int[] coins, int amt) {
         int n = coins.length;
         int MAX = amt + 1;
-        // 初始化 dp 表
+        // Initialize dp table
         int[] dp = new int[amt + 1];
         Arrays.fill(dp, MAX);
         dp[0] = 0;
-        // 状态转移
+        // State transition
         for (int i = 1; i <= n; i++) {
             for (int a = 1; a <= amt; a++) {
                 if (coins[i - 1] > a) {
-                    // 若超过目标金额，则不选硬币 i
+                    // If exceeding the target amount, do not choose coin i
                     dp[a] = dp[a];
                 } else {
-                    // 不选和选硬币 i 这两种方案的较小值
+                    // The smaller value between not choosing and choosing coin i
                     dp[a] = Math.min(dp[a], dp[a - coins[i - 1]] + 1);
                 }
             }
@@ -61,12 +61,12 @@ public class coin_change {
         int[] coins = { 1, 2, 5 };
         int amt = 4;
 
-        // 动态规划
+        // Dynamic programming
         int res = coinChangeDP(coins, amt);
-        System.out.println("凑到目标金额所需的最少硬币数量为 " + res);
+        System.out.println("The minimum number of coins required to make up the target amount is " + res);
 
-        // 空间优化后的动态规划
+        // Space-optimized dynamic programming
         res = coinChangeDPComp(coins, amt);
-        System.out.println("凑到目标金额所需的最少硬币数量为 " + res);
+        System.out.println("The minimum number of coins required to make up the target amount is " + res);
     }
 }

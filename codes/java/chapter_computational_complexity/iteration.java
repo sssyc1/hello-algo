@@ -7,48 +7,48 @@
 package chapter_computational_complexity;
 
 public class iteration {
-    /* for 循环 */
+    /* for loop */
     static int forLoop(int n) {
         int res = 0;
-        // 循环求和 1, 2, ..., n-1, n
+        // Loop sum 1, 2, ..., n-1, n
         for (int i = 1; i <= n; i++) {
             res += i;
         }
         return res;
     }
 
-    /* while 循环 */
+    /* while loop */
     static int whileLoop(int n) {
         int res = 0;
-        int i = 1; // 初始化条件变量
-        // 循环求和 1, 2, ..., n-1, n
+        int i = 1; // Initialize condition variable
+        // Loop sum 1, 2, ..., n-1, n
         while (i <= n) {
             res += i;
-            i++; // 更新条件变量
+            i++; // Update condition variable
         }
         return res;
     }
 
-    /* while 循环（两次更新） */
+    /* while loop (two updates) */
     static int whileLoopII(int n) {
         int res = 0;
-        int i = 1; // 初始化条件变量
-        // 循环求和 1, 4, 10, ...
+        int i = 1; // Initialize condition variable
+        // Loop sum 1, 4, 10, ...
         while (i <= n) {
             res += i;
-            // 更新条件变量
+            // Update condition variable
             i++;
             i *= 2;
         }
         return res;
     }
 
-    /* 双层 for 循环 */
+    /* Double for loop */
     static String nestedForLoop(int n) {
         StringBuilder res = new StringBuilder();
-        // 循环 i = 1, 2, ..., n-1, n
+        // Loop i = 1, 2, ..., n-1, n
         for (int i = 1; i <= n; i++) {
-            // 循环 j = 1, 2, ..., n-1, n
+            // Loop j = 1, 2, ..., n-1, n
             for (int j = 1; j <= n; j++) {
                 res.append("(" + i + ", " + j + "), ");
             }
@@ -62,15 +62,15 @@ public class iteration {
         int res;
 
         res = forLoop(n);
-        System.out.println("\nfor 循环的求和结果 res = " + res);
+        System.out.println("\nSum result of the for loop res = " + res);
 
         res = whileLoop(n);
-        System.out.println("\nwhile 循环的求和结果 res = " + res);
+        System.out.println("\nSum result of the while loop res = " + res);
 
         res = whileLoopII(n);
-        System.out.println("\nwhile 循环（两次更新）求和结果 res = " + res);
+        System.out.println("\nSum result of the while loop (with two updates) res = " + res);
 
         String resStr = nestedForLoop(n);
-        System.out.println("\n双层 for 循环的遍历结果 " + resStr);
+        System.out.println("\nResult of the double for loop traversal = " + resStr);
     }
 }

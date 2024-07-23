@@ -10,58 +10,58 @@ import utils.*;
 import java.util.*;
 
 public class space_complexity {
-    /* 函数 */
+    /* Function */
     static int function() {
-        // 执行某些操作
+        // Perform some operations
         return 0;
     }
 
-    /* 常数阶 */
+    /* Constant complexity */
     static void constant(int n) {
-        // 常量、变量、对象占用 O(1) 空间
+        // Constants, variables, objects occupy O(1) space
         final int a = 0;
         int b = 0;
         int[] nums = new int[10000];
         ListNode node = new ListNode(0);
-        // 循环中的变量占用 O(1) 空间
+        // Variables in a loop occupy O(1) space
         for (int i = 0; i < n; i++) {
             int c = 0;
         }
-        // 循环中的函数占用 O(1) 空间
+        // Functions in a loop occupy O(1) space
         for (int i = 0; i < n; i++) {
             function();
         }
     }
 
-    /* 线性阶 */
+    /* Linear complexity */
     static void linear(int n) {
-        // 长度为 n 的数组占用 O(n) 空间
+        // Array of length n occupies O(n) space
         int[] nums = new int[n];
-        // 长度为 n 的列表占用 O(n) 空间
+        // A list of length n occupies O(n) space
         List<ListNode> nodes = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             nodes.add(new ListNode(i));
         }
-        // 长度为 n 的哈希表占用 O(n) 空间
+        // A hash table of length n occupies O(n) space
         Map<Integer, String> map = new HashMap<>();
         for (int i = 0; i < n; i++) {
             map.put(i, String.valueOf(i));
         }
     }
 
-    /* 线性阶（递归实现） */
+    /* Linear complexity (recursive implementation) */
     static void linearRecur(int n) {
-        System.out.println("递归 n = " + n);
+        System.out.println("Recursion n = " + n);
         if (n == 1)
             return;
         linearRecur(n - 1);
     }
 
-    /* 平方阶 */
+    /* Quadratic complexity */
     static void quadratic(int n) {
-        // 矩阵占用 O(n^2) 空间
+        // Matrix occupies O(n^2) space
         int[][] numMatrix = new int[n][n];
-        // 二维列表占用 O(n^2) 空间
+        // A two-dimensional list occupies O(n^2) space
         List<List<Integer>> numList = new ArrayList<>();
         for (int i = 0; i < n; i++) {
             List<Integer> tmp = new ArrayList<>();
@@ -72,17 +72,17 @@ public class space_complexity {
         }
     }
 
-    /* 平方阶（递归实现） */
+    /* Quadratic complexity (recursive implementation) */
     static int quadraticRecur(int n) {
         if (n <= 0)
             return 0;
-        // 数组 nums 长度为 n, n-1, ..., 2, 1
+        // Array nums length = n, n-1, ..., 2, 1
         int[] nums = new int[n];
-        System.out.println("递归 n = " + n + " 中的 nums 长度 = " + nums.length);
+        System.out.println("Recursion n = " + n + " in the length of nums = " + nums.length);
         return quadraticRecur(n - 1);
     }
 
-    /* 指数阶（建立满二叉树） */
+    /* Exponential complexity (building a full binary tree) */
     static TreeNode buildTree(int n) {
         if (n == 0)
             return null;
@@ -95,15 +95,15 @@ public class space_complexity {
     /* Driver Code */
     public static void main(String[] args) {
         int n = 5;
-        // 常数阶
+        // Constant complexity
         constant(n);
-        // 线性阶
+        // Linear complexity
         linear(n);
         linearRecur(n);
-        // 平方阶
+        // Quadratic complexity
         quadratic(n);
         quadraticRecur(n);
-        // 指数阶
+        // Exponential complexity
         TreeNode root = buildTree(n);
         PrintUtil.printTree(root);
     }

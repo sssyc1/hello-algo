@@ -9,47 +9,47 @@ package chapter_tree;
 import utils.*;
 import java.util.*;
 
-/* 数组表示下的二叉树类 */
+/* Array-based binary tree class */
 class ArrayBinaryTree {
     private List<Integer> tree;
 
-    /* 构造方法 */
+    /* Constructor */
     public ArrayBinaryTree(List<Integer> arr) {
         tree = new ArrayList<>(arr);
     }
 
-    /* 列表容量 */
+    /* List capacity */
     public int size() {
         return tree.size();
     }
 
-    /* 获取索引为 i 节点的值 */
+    /* Get the value of the node at index i */
     public Integer val(int i) {
-        // 若索引越界，则返回 null ，代表空位
+        // If the index is out of bounds, return null, representing an empty spot
         if (i < 0 || i >= size())
             return null;
         return tree.get(i);
     }
 
-    /* 获取索引为 i 节点的左子节点的索引 */
+    /* Get the index of the left child of the node at index i */
     public Integer left(int i) {
         return 2 * i + 1;
     }
 
-    /* 获取索引为 i 节点的右子节点的索引 */
+    /* Get the index of the right child of the node at index i */
     public Integer right(int i) {
         return 2 * i + 2;
     }
 
-    /* 获取索引为 i 节点的父节点的索引 */
+    /* Get the index of the parent of the node at index i */
     public Integer parent(int i) {
         return (i - 1) / 2;
     }
 
-    /* 层序遍历 */
+    /* Level-order traversal */
     public List<Integer> levelOrder() {
         List<Integer> res = new ArrayList<>();
-        // 直接遍历数组
+        // Traverse array
         for (int i = 0; i < size(); i++) {
             if (val(i) != null)
                 res.add(val(i));
@@ -57,39 +57,39 @@ class ArrayBinaryTree {
         return res;
     }
 
-    /* 深度优先遍历 */
+    /* Depth-first traversal */
     private void dfs(Integer i, String order, List<Integer> res) {
-        // 若为空位，则返回
+        // If it is an empty spot, return
         if (val(i) == null)
             return;
-        // 前序遍历
+        // Pre-order traversal
         if ("pre".equals(order))
             res.add(val(i));
         dfs(left(i), order, res);
-        // 中序遍历
+        // In-order traversal
         if ("in".equals(order))
             res.add(val(i));
         dfs(right(i), order, res);
-        // 后序遍历
+        // Post-order traversal
         if ("post".equals(order))
             res.add(val(i));
     }
 
-    /* 前序遍历 */
+    /* Pre-order traversal */
     public List<Integer> preOrder() {
         List<Integer> res = new ArrayList<>();
         dfs(0, "pre", res);
         return res;
     }
 
-    /* 中序遍历 */
+    /* In-order traversal */
     public List<Integer> inOrder() {
         List<Integer> res = new ArrayList<>();
         dfs(0, "in", res);
         return res;
     }
 
-    /* 后序遍历 */
+    /* Post-order traversal */
     public List<Integer> postOrder() {
         List<Integer> res = new ArrayList<>();
         dfs(0, "post", res);
@@ -99,38 +99,38 @@ class ArrayBinaryTree {
 
 public class array_binary_tree {
     public static void main(String[] args) {
-        // 初始化二叉树
-        // 这里借助了一个从数组直接生成二叉树的函数
+        // Initialize binary tree
+        // Use a specific function to convert an array into a binary tree
         List<Integer> arr = Arrays.asList(1, 2, 3, 4, null, 6, 7, 8, 9, null, null, 12, null, null, 15);
 
         TreeNode root = TreeNode.listToTree(arr);
-        System.out.println("\n初始化二叉树\n");
-        System.out.println("二叉树的数组表示：");
+        System.out.println("\nInitialize binary tree\n");
+        System.out.println("Array representation of the binary tree:");
         System.out.println(arr);
-        System.out.println("二叉树的链表表示：");
+        System.out.println("Linked list representation of the binary tree:");
         PrintUtil.printTree(root);
 
-        // 数组表示下的二叉树类
+        // Array-based binary tree class
         ArrayBinaryTree abt = new ArrayBinaryTree(arr);
 
-        // 访问节点
+        // Access node
         int i = 1;
         Integer l = abt.left(i);
         Integer r = abt.right(i);
         Integer p = abt.parent(i);
-        System.out.println("\n当前节点的索引为 " + i + " ，值为 " + abt.val(i));
-        System.out.println("其左子节点的索引为 " + l + " ，值为 " + (l == null ? "null" : abt.val(l)));
-        System.out.println("其右子节点的索引为 " + r + " ，值为 " + (r == null ? "null" : abt.val(r)));
-        System.out.println("其父节点的索引为 " + p + " ，值为 " + (p == null ? "null" : abt.val(p)));
+        System.out.println("\nThe current node's index is " + i + ", value = " + abt.val(i));
+        System.out.println("Its left child's index is " + l + ", value = " + (l == null ? "null" : abt.val(l)));
+        System.out.println("Its right child's index is " + r + ", value = " + (r == null ? "null" : abt.val(r)));
+        System.out.println("Its parent's index is " + p + ", value = " + (p == null ? "null" : abt.val(p)));
 
-        // 遍历树
+        // Traverse tree
         List<Integer> res = abt.levelOrder();
-        System.out.println("\n层序遍历为：" + res);
+        System.out.println("\nLevel-order traversal is:" + res);
         res = abt.preOrder();
-        System.out.println("前序遍历为：" + res);
+        System.out.println("Pre-order traversal is:" + res);
         res = abt.inOrder();
-        System.out.println("中序遍历为：" + res);
+        System.out.println("In-order traversal is:" + res);
         res = abt.postOrder();
-        System.out.println("后序遍历为：" + res);
+        System.out.println("Post-order traversal is:" + res);
     }
 }

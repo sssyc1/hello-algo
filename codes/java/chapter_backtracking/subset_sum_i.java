@@ -9,36 +9,36 @@ package chapter_backtracking;
 import java.util.*;
 
 public class subset_sum_i {
-    /* 回溯算法：子集和 I */
+    /* Backtracking algorithm: Subset Sum I */
     static void backtrack(List<Integer> state, int target, int[] choices, int start, List<List<Integer>> res) {
-        // 子集和等于 target 时，记录解
+        // When the subset sum equals target, record the solution
         if (target == 0) {
             res.add(new ArrayList<>(state));
             return;
         }
-        // 遍历所有选择
-        // 剪枝二：从 start 开始遍历，避免生成重复子集
+        // Traverse all choices
+        // Pruning two: start traversing from start to avoid generating duplicate subsets
         for (int i = start; i < choices.length; i++) {
-            // 剪枝一：若子集和超过 target ，则直接结束循环
-            // 这是因为数组已排序，后边元素更大，子集和一定超过 target
+            // Pruning one: if the subset sum exceeds target, end the loop immediately
+            // This is because the array is sorted, and later elements are larger, so the subset sum will definitely exceed target
             if (target - choices[i] < 0) {
                 break;
             }
-            // 尝试：做出选择，更新 target, start
+            // Attempt: make a choice, update target, start
             state.add(choices[i]);
-            // 进行下一轮选择
+            // Proceed to the next round of selection
             backtrack(state, target - choices[i], choices, i, res);
-            // 回退：撤销选择，恢复到之前的状态
+            // Retract: undo the choice, restore to the previous state
             state.remove(state.size() - 1);
         }
     }
 
-    /* 求解子集和 I */
+    /* Solve Subset Sum I */
     static List<List<Integer>> subsetSumI(int[] nums, int target) {
-        List<Integer> state = new ArrayList<>(); // 状态（子集）
-        Arrays.sort(nums); // 对 nums 进行排序
-        int start = 0; // 遍历起始点
-        List<List<Integer>> res = new ArrayList<>(); // 结果列表（子集列表）
+        List<Integer> state = new ArrayList<>(); // State (subset)
+        Arrays.sort(nums); // Sort nums
+        int start = 0; // Start point for traversal
+        List<List<Integer>> res = new ArrayList<>(); // Result list (subset list)
         backtrack(state, target, nums, start, res);
         return res;
     }
@@ -49,7 +49,7 @@ public class subset_sum_i {
 
         List<List<Integer>> res = subsetSumI(nums, target);
 
-        System.out.println("输入数组 nums = " + Arrays.toString(nums) + ", target = " + target);
-        System.out.println("所有和等于 " + target + " 的子集 res = " + res);
+        System.out.println("Input array nums = " + Arrays.toString(nums) + ", target = " + target);
+        System.out.println("All subsets summing to " + target + " res = " + res);
     }
 }

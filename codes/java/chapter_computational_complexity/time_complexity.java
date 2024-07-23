@@ -7,7 +7,7 @@
 package chapter_computational_complexity;
 
 public class time_complexity {
-    /* 常数阶 */
+    /* Constant complexity */
     static int constant(int n) {
         int count = 0;
         int size = 100000;
@@ -16,7 +16,7 @@ public class time_complexity {
         return count;
     }
 
-    /* 线性阶 */
+    /* Linear complexity */
     static int linear(int n) {
         int count = 0;
         for (int i = 0; i < n; i++)
@@ -24,20 +24,20 @@ public class time_complexity {
         return count;
     }
 
-    /* 线性阶（遍历数组） */
+    /* Linear complexity (traversing an array) */
     static int arrayTraversal(int[] nums) {
         int count = 0;
-        // 循环次数与数组长度成正比
+        // Loop count is proportional to the length of the array
         for (int num : nums) {
             count++;
         }
         return count;
     }
 
-    /* 平方阶 */
+    /* Quadratic complexity */
     static int quadratic(int n) {
         int count = 0;
-        // 循环次数与数据大小 n 成平方关系
+        // Loop count is squared in relation to the data size n
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 count++;
@@ -46,29 +46,29 @@ public class time_complexity {
         return count;
     }
 
-    /* 平方阶（冒泡排序） */
+    /* Quadratic complexity (bubble sort) */
     static int bubbleSort(int[] nums) {
-        int count = 0; // 计数器
-        // 外循环：未排序区间为 [0, i]
+        int count = 0; // Counter
+        // Outer loop: unsorted range is [0, i]
         for (int i = nums.length - 1; i > 0; i--) {
-            // 内循环：将未排序区间 [0, i] 中的最大元素交换至该区间的最右端
+            // Inner loop: swap the largest element in the unsorted range [0, i] to the right end of the range
             for (int j = 0; j < i; j++) {
                 if (nums[j] > nums[j + 1]) {
-                    // 交换 nums[j] 与 nums[j + 1]
+                    // Swap nums[j] and nums[j + 1]
                     int tmp = nums[j];
                     nums[j] = nums[j + 1];
                     nums[j + 1] = tmp;
-                    count += 3; // 元素交换包含 3 个单元操作
+                    count += 3; // Element swap includes 3 individual operations
                 }
             }
         }
         return count;
     }
 
-    /* 指数阶（循环实现） */
+    /* Exponential complexity (loop implementation) */
     static int exponential(int n) {
         int count = 0, base = 1;
-        // 细胞每轮一分为二，形成数列 1, 2, 4, 8, ..., 2^(n-1)
+        // Cells split into two every round, forming the sequence 1, 2, 4, 8, ..., 2^(n-1)
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < base; j++) {
                 count++;
@@ -79,14 +79,14 @@ public class time_complexity {
         return count;
     }
 
-    /* 指数阶（递归实现） */
+    /* Exponential complexity (recursive implementation) */
     static int expRecur(int n) {
         if (n == 1)
             return 1;
         return expRecur(n - 1) + expRecur(n - 1) + 1;
     }
 
-    /* 对数阶（循环实现） */
+    /* Logarithmic complexity (loop implementation) */
     static int logarithmic(int n) {
         int count = 0;
         while (n > 1) {
@@ -96,14 +96,14 @@ public class time_complexity {
         return count;
     }
 
-    /* 对数阶（递归实现） */
+    /* Logarithmic complexity (recursive implementation) */
     static int logRecur(int n) {
         if (n <= 1)
             return 0;
         return logRecur(n / 2) + 1;
     }
 
-    /* 线性对数阶 */
+    /* Linear logarithmic complexity */
     static int linearLogRecur(int n) {
         if (n <= 1)
             return 1;
@@ -114,12 +114,12 @@ public class time_complexity {
         return count;
     }
 
-    /* 阶乘阶（递归实现） */
+    /* Factorial complexity (recursive implementation) */
     static int factorialRecur(int n) {
         if (n == 0)
             return 1;
         int count = 0;
-        // 从 1 个分裂出 n 个
+        // From 1 split into n
         for (int i = 0; i < n; i++) {
             count += factorialRecur(n - 1);
         }
@@ -128,40 +128,40 @@ public class time_complexity {
 
     /* Driver Code */
     public static void main(String[] args) {
-        // 可以修改 n 运行，体会一下各种复杂度的操作数量变化趋势
+        // Can modify n to experience the trend of operation count changes under various complexities
         int n = 8;
-        System.out.println("输入数据大小 n = " + n);
+        System.out.println("Input data size n = " + n);
 
         int count = constant(n);
-        System.out.println("常数阶的操作数量 = " + count);
+        System.out.println("Number of constant complexity operations = " + count);
 
         count = linear(n);
-        System.out.println("线性阶的操作数量 = " + count);
+        System.out.println("Number of linear complexity operations = " + count);
         count = arrayTraversal(new int[n]);
-        System.out.println("线性阶（遍历数组）的操作数量 = " + count);
+        System.out.println("Number of linear complexity operations (traversing the array) = " + count);
 
         count = quadratic(n);
-        System.out.println("平方阶的操作数量 = " + count);
+        System.out.println("Number of quadratic order operations = " + count);
         int[] nums = new int[n];
         for (int i = 0; i < n; i++)
             nums[i] = n - i; // [n,n-1,...,2,1]
         count = bubbleSort(nums);
-        System.out.println("平方阶（冒泡排序）的操作数量 = " + count);
+        System.out.println("Number of quadratic order operations (bubble sort) = " + count);
 
         count = exponential(n);
-        System.out.println("指数阶（循环实现）的操作数量 = " + count);
+        System.out.println("Number of exponential complexity operations (implemented by loop) = " + count);
         count = expRecur(n);
-        System.out.println("指数阶（递归实现）的操作数量 = " + count);
+        System.out.println("Number of exponential complexity operations (implemented by recursion) = " + count);
 
         count = logarithmic(n);
-        System.out.println("对数阶（循环实现）的操作数量 = " + count);
+        System.out.println("Number of logarithmic complexity operations (implemented by loop) = " + count);
         count = logRecur(n);
-        System.out.println("对数阶（递归实现）的操作数量 = " + count);
+        System.out.println("Number of logarithmic complexity operations (implemented by recursion) = " + count);
 
         count = linearLogRecur(n);
-        System.out.println("线性对数阶（递归实现）的操作数量 = " + count);
+        System.out.println("Number of linear logarithmic complexity operations (implemented by recursion) = " + count);
 
         count = factorialRecur(n);
-        System.out.println("阶乘阶（递归实现）的操作数量 = " + count);
+        System.out.println("Number of factorial complexity operations (implemented by recursion) = " + count);
     }
 }

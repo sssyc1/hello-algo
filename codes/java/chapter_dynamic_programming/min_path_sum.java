@@ -9,60 +9,60 @@ package chapter_dynamic_programming;
 import java.util.Arrays;
 
 public class min_path_sum {
-    /* 最小路径和：暴力搜索 */
+    /* Minimum path sum: Brute force search */
     static int minPathSumDFS(int[][] grid, int i, int j) {
-        // 若为左上角单元格，则终止搜索
+        // If it's the top-left cell, terminate the search
         if (i == 0 && j == 0) {
             return grid[0][0];
         }
-        // 若行列索引越界，则返回 +∞ 代价
+        // If the row or column index is out of bounds, return a +∞ cost
         if (i < 0 || j < 0) {
             return Integer.MAX_VALUE;
         }
-        // 计算从左上角到 (i-1, j) 和 (i, j-1) 的最小路径代价
+        // Calculate the minimum path cost from the top-left to (i-1, j) and (i, j-1)
         int up = minPathSumDFS(grid, i - 1, j);
         int left = minPathSumDFS(grid, i, j - 1);
-        // 返回从左上角到 (i, j) 的最小路径代价
+        // Return the minimum path cost from the top-left to (i, j)
         return Math.min(left, up) + grid[i][j];
     }
 
-    /* 最小路径和：记忆化搜索 */
+    /* Minimum path sum: Memoized search */
     static int minPathSumDFSMem(int[][] grid, int[][] mem, int i, int j) {
-        // 若为左上角单元格，则终止搜索
+        // If it's the top-left cell, terminate the search
         if (i == 0 && j == 0) {
             return grid[0][0];
         }
-        // 若行列索引越界，则返回 +∞ 代价
+        // If the row or column index is out of bounds, return a +∞ cost
         if (i < 0 || j < 0) {
             return Integer.MAX_VALUE;
         }
-        // 若已有记录，则直接返回
+        // If there is a record, return it
         if (mem[i][j] != -1) {
             return mem[i][j];
         }
-        // 左边和上边单元格的最小路径代价
+        // The minimum path cost from the left and top cells
         int up = minPathSumDFSMem(grid, mem, i - 1, j);
         int left = minPathSumDFSMem(grid, mem, i, j - 1);
-        // 记录并返回左上角到 (i, j) 的最小路径代价
+        // Record and return the minimum path cost from the top-left to (i, j)
         mem[i][j] = Math.min(left, up) + grid[i][j];
         return mem[i][j];
     }
 
-    /* 最小路径和：动态规划 */
+    /* Minimum path sum: Dynamic programming */
     static int minPathSumDP(int[][] grid) {
         int n = grid.length, m = grid[0].length;
-        // 初始化 dp 表
+        // Initialize dp table
         int[][] dp = new int[n][m];
         dp[0][0] = grid[0][0];
-        // 状态转移：首行
+        // State transition: first row
         for (int j = 1; j < m; j++) {
             dp[0][j] = dp[0][j - 1] + grid[0][j];
         }
-        // 状态转移：首列
+        // State transition: first column
         for (int i = 1; i < n; i++) {
             dp[i][0] = dp[i - 1][0] + grid[i][0];
         }
-        // 状态转移：其余行和列
+        // State transition: the rest of the rows and columns
         for (int i = 1; i < n; i++) {
             for (int j = 1; j < m; j++) {
                 dp[i][j] = Math.min(dp[i][j - 1], dp[i - 1][j]) + grid[i][j];
@@ -71,21 +71,21 @@ public class min_path_sum {
         return dp[n - 1][m - 1];
     }
 
-    /* 最小路径和：空间优化后的动态规划 */
+    /* Minimum path sum: Space-optimized dynamic programming */
     static int minPathSumDPComp(int[][] grid) {
         int n = grid.length, m = grid[0].length;
-        // 初始化 dp 表
+        // Initialize dp table
         int[] dp = new int[m];
-        // 状态转移：首行
+        // State transition: first row
         dp[0] = grid[0][0];
         for (int j = 1; j < m; j++) {
             dp[j] = dp[j - 1] + grid[0][j];
         }
-        // 状态转移：其余行
+        // State transition: the rest of the rows
         for (int i = 1; i < n; i++) {
-            // 状态转移：首列
+            // State transition: first column
             dp[0] = dp[0] + grid[i][0];
-            // 状态转移：其余列
+            // State transition: the rest of the columns
             for (int j = 1; j < m; j++) {
                 dp[j] = Math.min(dp[j - 1], dp[j]) + grid[i][j];
             }
@@ -102,24 +102,24 @@ public class min_path_sum {
         };
         int n = grid.length, m = grid[0].length;
 
-        // 暴力搜索
+        // Brute force search
         int res = minPathSumDFS(grid, n - 1, m - 1);
-        System.out.println("从左上角到右下角的最小路径和为 " + res);
+        System.out.println("The minimum path sum from the top left corner to the bottom right corner is " + res);
 
-        // 记忆化搜索
+        // Memoized search
         int[][] mem = new int[n][m];
         for (int[] row : mem) {
             Arrays.fill(row, -1);
         }
         res = minPathSumDFSMem(grid, mem, n - 1, m - 1);
-        System.out.println("从左上角到右下角的最小路径和为 " + res);
+        System.out.println("The minimum path sum from the top left corner to the bottom right corner is " + res);
 
-        // 动态规划
+        // Dynamic programming
         res = minPathSumDP(grid);
-        System.out.println("从左上角到右下角的最小路径和为 " + res);
+        System.out.println("The minimum path sum from the top left corner to the bottom right corner is " + res);
 
-        // 空间优化后的动态规划
+        // Space-optimized dynamic programming
         res = minPathSumDPComp(grid);
-        System.out.println("从左上角到右下角的最小路径和为 " + res);
+        System.out.println("The minimum path sum from the top left corner to the bottom right corner is " + res);
     }
 }
